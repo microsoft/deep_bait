@@ -1,0 +1,92 @@
+# Project file for Deep Learning on Batch AI
+#
+# Run anaconda-project list-commands to see all commands
+
+
+# To set everyhing up run:
+#   anaconda-project run setup
+
+
+name: deep_bait
+
+icon:
+description: Project to run most popular deep learning framework on Batch AI
+
+commands:
+  setup:
+    unix: make initial-setup
+    description: Setup the Batch AI project
+
+  bash:
+    unix: bash
+    description: Starts terminal inside env
+
+  ipython:
+    unix: ipython
+    description: Starts ipython inside the env
+
+  notebook:
+    notebook: ExploringBatchAI.ipynb
+    description: Notebook for exploring Batch AI
+    supports_http_options: true
+
+#    --anaconda-project-port the port to listen on
+#    --anaconda-project-host the public hostname that browsers will connect to
+#    --anaconda-project-no-browser don't open a browser showing the app
+#    --anaconda-project-url-prefix put this prefix in front of all routes
+
+
+
+variables:
+  SELECTED_SUBSCRIPTION: {description: "Azure subscription to create resources under"}
+  GROUP_NAME: {description: "The name of the resource group to build everything under"}
+  STORAGE_ACCOUNT_NAME: {description: "The name of the storage account to use to transfer
+      data and scripts to Batch AI nodes"}
+  LOCATION: {description: "The location to create the resource under"}
+  FILE_SHARE_NAME: {description: "The name of the fileshare to create"}
+  BAIT_SUBSCRIPTION_ID: {description: "The Batch AI subscription ID"}
+  BAIT_AUTHENTICATION: {description: "The Batch AI Authentication key"}
+  SERVICE_PRINCIPAL_PWD: {description: "Password used for service principal"}
+  SERVICE_PRINCIPAL_APP_NAME: {default: "Batch_AI", description: "The identifier for the service principal"}
+
+
+downloads:
+  DATA:
+    filename: data/cifar-10-python.tar.gz
+    url: http://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz
+#
+# In the packages section, list any packages that must be installed
+# before your code runs.
+# Use `anaconda-project add-packages` to add packages.
+#
+packages: [python=3.6, scikit-learn=0.19, ipython, jupyter, ipykernel, numpy==1.13.1, scipy==0.19.1, pandas]
+
+#
+# In the platforms section, list platforms the project should work on
+# Examples: "linux-64", "osx-64", "win-64"
+# Use `anaconda-project add-platforms` to add platforms.
+#
+platforms:
+- linux-64
+#
+# You can define multiple, named environment specs.
+# Each inherits any global packages or channels,
+# but can have its own unique ones also.
+# Use `anaconda-project add-env-spec` to add environment specs.
+#
+env_specs:
+  default:
+    description: Sets up a default python 3 environment
+    packages:
+    - anaconda-project
+    - pip:
+      - msrest==0.4.16
+      - fire==0.1.2
+      - toolz==0.8.2
+      - requests==2.18.4
+      - nbconvert==5.1.1
+      - Pillow==4.3.0
+      - python-dotenv==0.7.1
+      - nbformat==4.4.0
+      - setuptools==36.5.0
+      - azure-storage==0.33.0
