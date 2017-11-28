@@ -5,6 +5,7 @@ define PROJECT_HELP_MSG
 Usage:
 	make help                           show this message
 	make initial-setup                  setup environment
+	make clean							clean up the project and remove environment
 endef
 export PROJECT_HELP_MSG
 
@@ -67,5 +68,8 @@ set-storage-key: set-storage
 prepare-data:
 	tar xzvf $(DATA) --directory $(shell dirname $(DATA))
 
+clean:
+	rm -rf envs data anaconda-project-local.yml
 
-.PHONY: help initial-setup install-blobxfer install-az-cli register-azb create-service-principal select-subscription create-storage set-storage create-fileshare transfer-to-fileshare set-storage-key prepare-data
+
+.PHONY: help initial-setup install-blobxfer install-az-cli register-azb create-service-principal select-subscription create-storage set-storage create-fileshare transfer-to-fileshare set-storage-key prepare-data clean
