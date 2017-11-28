@@ -6,7 +6,7 @@ Batch AI is a service that allows you to run various machine learning workloads 
 This project uses [anaconda-project](https://github.com/Anaconda-Platform/anaconda-project) and makefiles to create the environment, download the data and prepare all necessary artifacts.
 
 The frameworks are:
-* [Caffe2](exec_src\Caffe2_CIFAR.ipynb)
+* [Caffe2](exec_src/Caffe2_CIFAR.ipynb)
 * [MXNet (Gluon)](exec_src/Caffe2_CIFAR.ipynb)
 * [PyTorch](exec_src/Caffe2_CIFAR.ipynb)
 * [Chainer](exec_src/Caffe2_CIFAR.ipynb)
