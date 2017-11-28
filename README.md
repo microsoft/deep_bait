@@ -94,6 +94,11 @@ The above command sets up the environment variables necessary and then executes 
 ## Docker
 The dockerfiles used to create the docker images can be found [here](docker). There is also a makefile in the folder that has al the commands for creating the docker images.
 
+## Clean/Delete project
+To clean the project and start from scratch or simply to remove the environment and data files simply run
+```bash
+make clean
+```
 
 # Contributing
 
