@@ -5,6 +5,17 @@ Batch AI is a service that allows you to run various machine learning workloads 
 
 This project uses [anaconda-project](https://github.com/Anaconda-Platform/anaconda-project) and makefiles to create the environment, download the data and prepare all necessary artifacts.
 
+The frameworks are:
+* [Caffe2](exec_src\Caffe2_CIFAR.ipynb)
+* [MXNet (Gluon)](exec_src/Caffe2_CIFAR.ipynb)
+* [PyTorch](exec_src/Caffe2_CIFAR.ipynb)
+* [Chainer](exec_src/Caffe2_CIFAR.ipynb)
+* [Keras (TF/CNTK)](exec_src/Caffe2_CIFAR.ipynb)
+* [Tensorflow](exec_src/Caffe2_CIFAR.ipynb)
+* [CNTK](exec_src/Caffe2_CIFAR.ipynb)
+
+Each of the notebooks trains a simple Convolution Neural Network on the CIFAR10 dataset.
+
 ## Setup
 This project was developed and tested on an [Azure Ubuntu DSVM](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/microsoft-ads.linux-data-science-vm-ubuntu) but should be compatible with any Linux distribution. The prerequisites for this are:
 * [Azure account](https://azure.microsoft.com/en-gb/free/)
