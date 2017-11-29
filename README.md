@@ -7,12 +7,14 @@ This project uses [anaconda-project](https://github.com/Anaconda-Platform/anacon
 
 The frameworks are:
 * [Caffe2](exec_src/Caffe2_CIFAR.ipynb)
-* [MXNet (Gluon)](exec_src/Caffe2_CIFAR.ipynb)
-* [PyTorch](exec_src/Caffe2_CIFAR.ipynb)
-* [Chainer](exec_src/Caffe2_CIFAR.ipynb)
-* [Keras (TF/CNTK)](exec_src/Caffe2_CIFAR.ipynb)
-* [Tensorflow](exec_src/Caffe2_CIFAR.ipynb)
-* [CNTK](exec_src/Caffe2_CIFAR.ipynb)
+* [MXNet (Gluon)](exec_src/MXNet_CIFAR.ipynb)
+* [Gluon](exec_src/Gluon_CIFAR.ipynb)
+* [PyTorch](exec_src/PyTorch_CIFAR.ipynb)
+* [Chainer](exec_src/Chainer_CIFAR.ipynb)
+* [Keras (TF)](exec_src/Keras_TF_CIFAR.ipynb)
+* [Keras (CNTK)](exec_src/Keras_CNTK_CIFAR.ipynb)
+* [Tensorflow](exec_src/Tensorflow_CIFAR.ipynb)
+* [CNTK](exec_src/CNTK_CIFAR.ipynb)
 
 Each of the notebooks trains a simple Convolution Neural Network on the CIFAR10 dataset.
 
