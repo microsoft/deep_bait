@@ -69,6 +69,10 @@ prepare-data:
 	tar xzvf $(DATA) --directory $(shell dirname $(DATA))
 
 clean:
+	anaconda-project remove-variable STORAGE_ACCOUNT_KEY
+	anaconda-project remove-variable APP_ID
+	anaconda-project remove-variable TENANT
+	anaconda-project remove-variable SUBSCRIPTION_ID
 	rm -rf envs data anaconda-project-local.yml
 
 
