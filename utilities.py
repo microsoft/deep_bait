@@ -171,7 +171,7 @@ def wait_for_cluster(config, resource_group, cluster_name, polling_interval=POLL
         try:
             cluster = client.clusters.get(resource_group, cluster_name)
             print_cluster_status(cluster)
-            if (cluster.target_number_of_vms == cluster.current_number_of_vms
+            if (cluster.scale_settings.manual.target_node_count == cluster.current_node_count
                 and cluster.node_state_counts.preparing_node_count == 0 and
                 cluster.node_state_counts.idle_node_count > 0 or
                     cluster.errors):
