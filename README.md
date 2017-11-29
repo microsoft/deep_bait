@@ -22,6 +22,10 @@ This project was developed and tested on an [Azure Ubuntu DSVM](https://azuremar
 * [Register for Batch AI](https://docs.microsoft.com/en-gb/azure/batch-ai/quickstart-python)
 * [anaconda-project installed](https://github.com/Anaconda-Platform/anaconda-project) on VM or local machine
 * Docker installed (only required for local testing and creating docker images)
+* Install [jq](https://github.com/stedolan/jq) if not already installed
+```bash
+sudo apt-get install jq
+```
 
 
 ##### Optional
