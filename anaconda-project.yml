@@ -30,11 +30,6 @@ commands:
     description: Notebook for exploring Batch AI
     supports_http_options: true
 
-#    --anaconda-project-port the port to listen on
-#    --anaconda-project-host the public hostname that browsers will connect to
-#    --anaconda-project-no-browser don't open a browser showing the app
-#    --anaconda-project-url-prefix put this prefix in front of all routes
-
 
 
 variables:

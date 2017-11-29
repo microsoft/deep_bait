@@ -72,11 +72,13 @@ The command can take a while. If you want more information on what is going on y
 Instructions on how to setup the cluster and start submitting jobs are detailed in [ExploringBatchAI](ExploringBatchAI.ipynb) notebook. To start it run the following command: 
 
 ```bash
-anaconda-project run notebook --anaconda-project-no-browser
+anaconda-project run notebook --no-browser
 ```
 
-We are assuming you are executing on a VM and that is the reason for the --anaconda-project-no-browser switch. 
+We are assuming you are executing on a VM and that is the reason for the --no-browser switch.  
 This will start a Jupyter notebook server that should be reachable the same way you would reach your standard Jupyter notebook server.
+The above commands assumes that the appropriate ports are open on the VM and that the server has been set up to accept connections from any ip.
+Other switches and arguments will also work so if you want to specify ip or port then you can simply add them on to the end.
 
 You can also interact with Batch AI by running:
 ```bash
@@ -94,6 +96,7 @@ make cntk-nb-server
 ```
 
 The above command sets up the environment variables necessary and then executes the notebook server inside the CNTK docker container.
+The above commands assumes that the appropriate ports are open on the VM and that the server has been set up to accept connections from any ip.
 
 ## Docker
 The dockerfiles used to create the docker images can be found [here](docker). There is also a makefile in the folder that has al the commands for creating the docker images.
