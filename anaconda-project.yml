@@ -45,7 +45,7 @@ variables:
   LOCATION: {default: "eastus", description: "The location to create the resources under"}
   FILE_SHARE_NAME: {description: "The name of the fileshare to create"}
   SERVICE_PRINCIPAL_PWD: {description: "Password to be used for the service principal"}
-  SERVICE_PRINCIPAL_APP_NAME: {default: "Batch_AI", description: "The identifier for the service principal"}
+  SERVICE_PRINCIPAL_APP_NAME: {description: "The identifier for the service principal"}
 
 
 downloads:
