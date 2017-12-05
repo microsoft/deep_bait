@@ -36,8 +36,7 @@ If you want to execute docker without having to sudo each time then you need to 
 sudo groupadd docker
 sudo usermod -aG docker $USER
 ```
-You may need to log out and log back in again for changes to take effect
-Instruction from https://docs.docker.com/engine/installation/linux/linux-postinstall/#manage-docker-as-a-non-root-user
+You may need to log out and log back in again for changes to take effect. Instructions from https://docs.docker.com/engine/installation/linux/linux-postinstall/#manage-docker-as-a-non-root-user
 
 
 ##### *** Tip ***
@@ -55,7 +54,8 @@ When you first set the project you will need to set a number of things up. These
 ```bash
 anaconda-project prepare
 ```
-It will ask you for a number of variables as well as where to store the data locally. If nothing is specified it will use the local folder data
+It will ask you for a number of variables as well as where to store the data locally. If nothing is specified it will use the local folder data.
+
 Once the environment is set up we need to install some further packages as well as create some Azure resources. The following command will:
 * Install the Azure CLI
 * Install Blobxfer
@@ -101,7 +101,7 @@ The above command sets up the environment variables necessary and then executes 
 The above commands assumes that the appropriate ports are open on the VM and that the server has been set up to accept connections from any ip.
 
 ## Docker
-The dockerfiles used to create the docker images can be found [here](docker). There is also a makefile in the folder that has al the commands for creating the docker images.
+The dockerfiles used to create the docker images can be found [here](docker). There is also a makefile in the folder that has all the commands for creating the docker images.
 
 ## Clean/Delete project
 To clean the project and start from scratch or simply to remove the environment and data files simply run
