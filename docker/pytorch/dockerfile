@@ -20,10 +20,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && chmod 700 /root/.ssh \
     && cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys
 
-RUN ["/bin/bash", "-c", "source activate pytorch-py35 && \
-						 pip install fire toolz scikit-learn && \
-						 git clone https://github.com/msalvaris/gpu_monitor.git && \
-						 pip install -e gpu_monitor"]
+RUN bash -c "source activate pytorch-py35 && \
+			 pip install fire toolz scikit-learn && \
+			 git clone https://github.com/msalvaris/gpu_monitor.git && \
+			 pip install -e gpu_monitor"]
 
 EXPOSE 23
 CMD ["/usr/sbin/sshd", "-D", "-p", "23"]
