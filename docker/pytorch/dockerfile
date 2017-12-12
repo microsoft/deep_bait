@@ -23,7 +23,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN bash -c "source activate pytorch-py35 && \
 			 pip install fire toolz scikit-learn && \
 			 git clone https://github.com/msalvaris/gpu_monitor.git && \
-			 pip install -e gpu_monitor"]
+			 pip install -e gpu_monitor"
 
 EXPOSE 23
 CMD ["/usr/sbin/sshd", "-D", "-p", "23"]
