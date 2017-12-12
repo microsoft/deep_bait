@@ -1,6 +1,8 @@
 FROM caffe2ai/caffe2:c2v0.8.1.cuda8.cudnn7.ubuntu16.04
 
 RUN pip install fire toolz jupyter scipy scikit-learn
+RUN git clone https://github.com/msalvaris/gpu_monitor.git &&
+	pip install -e gpu_monitor
 
 COPY ssh_config /root/.ssh/config
 RUN apt-get update && apt-get install -y --no-install-recommends \

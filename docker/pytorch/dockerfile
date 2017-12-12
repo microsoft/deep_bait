@@ -1,7 +1,9 @@
 FROM masalvar/pytorch_base
 
 RUN conda install --name pytorch-py35 jupyter
-RUN ["/bin/bash", "-c", "source activate pytorch-py35 && pip install fire toolz scikit-learn"]
+RUN ["/bin/bash", "-c", "source activate pytorch-py35 && pip install fire toolz scikit-learn &&
+						 git clone https://github.com/msalvaris/gpu_monitor.git &&
+						 pip install -e gpu_monitor"]
 
 COPY ssh_config /root/.ssh/config
 RUN apt-get update && apt-get install -y --no-install-recommends \
