@@ -80,7 +80,7 @@ anaconda-project run notebook --no-browser
 We are assuming you are executing on a VM and that is the reason for the --no-browser switch.  
 This will start a Jupyter notebook server that should be reachable the same way you would reach your standard Jupyter notebook server.
 The above commands assumes that the appropriate ports are open on the VM and that the server has been set up to accept connections from any ip.
-Other switches and arguments will also work so if you want to specify ip or port then you can simply add them on to the end.
+Other switches and arguments will also work so if you want to specify ip or port then you can simply add them on to the end. For example, to connect to the notebook externally, you can run: `anaconda-project run notebook --no-browser --ip=*`. Then, in a browser just type `http://[IP-or-DNS]:8888` to access the notebook.
 
 You can also interact with Batch AI by running:
 ```bash
