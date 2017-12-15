@@ -10,6 +10,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         openssh-client \
         openssh-server \
         iproute2 \
+        pandoc \
+        git \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     # configure ssh server and keys
