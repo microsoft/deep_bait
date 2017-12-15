@@ -1,6 +1,8 @@
 import pickle
 import sys
 from os import path
+import timeit
+from datetime import datetime
 
 import numpy as np
 from sklearn.preprocessing import OneHotEncoder
@@ -79,3 +81,22 @@ def cifar_for_library(datapath, channel_first=True, one_hot=False):
     return x_train, x_test, y_train, y_test
 
 
+def create_logger(influx_client, **tags):
+    def logger(measurement, **fields):
+        influx_client.write_points([{
+            "measurement": measurement,
+            "tags": tags,
+            "time": datetime.now().strftime('%Y-%m-%dT%H:%M:%S%z'),
+            "fields": fields
+        }])
+    return logger
+
+
+class Timer:    
+    def __enter__(self):
+        self.start_time = timeit.default_timer()
+        return self
+
+    def __exit__(self, *args):
+        self.end = timeit.default_timer()
+        self.interval = self.end - self.start_time

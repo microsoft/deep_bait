@@ -33,16 +33,18 @@ commands:
 
 
 variables:
-  SELECTED_SUBSCRIPTION: {description: "Azure subscription to create resources under"}
-  GROUP_NAME: {description: "The name of the resource group to build everything under"}
-  STORAGE_ACCOUNT_NAME: {description: "The name of the storage account to use to transfer
-      data and scripts to Batch AI nodes"}
-  LOCATION: {default: "eastus", description: "The location to create the resources under"}
-  FILE_SHARE_NAME: {description: "The name of the fileshare to create"}
-  SERVICE_PRINCIPAL_PWD: {description: "Password to be used for the service principal"}
-  SERVICE_PRINCIPAL_APP_NAME: {description: "The identifier for the service principal"}
-
-
+  SELECTED_SUBSCRIPTION: {description: Azure subscription to create resources under}
+  GROUP_NAME: {description: The name of the resource group to build everything under}
+  STORAGE_ACCOUNT_NAME: {description: The name of the storage account to use to transfer
+      data and scripts to Batch AI nodes}
+  LOCATION: {default: eastus, description: The location to create the resources under}
+  FILE_SHARE_NAME: {description: The name of the fileshare to create}
+  SERVICE_PRINCIPAL_PWD: {description: Password to be used for the service principal}
+  SERVICE_PRINCIPAL_APP_NAME: {description: The identifier for the service principal}
+  APP_ID:
+  TENANT:
+  SUBSCRIPTION_ID:
+  STORAGE_ACCOUNT_KEY:
 downloads:
   DATA:
     filename: data/cifar-10-python.tar.gz
@@ -52,8 +54,8 @@ downloads:
 # before your code runs.
 # Use `anaconda-project add-packages` to add packages.
 #
-packages: [python=3.6, scikit-learn=0.19, ipython, jupyter, ipykernel, numpy==1.13.1, scipy==0.19.1, pandas]
-
+packages: [python=3.6, scikit-learn=0.19, ipython, jupyter, ipykernel, numpy==1.13.1,
+  scipy==0.19.1, pandas]
 #
 # In the platforms section, list platforms the project should work on
 # Examples: "linux-64", "osx-64", "win-64"
