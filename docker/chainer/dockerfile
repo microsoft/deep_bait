@@ -20,7 +20,10 @@ RUN curl -o ~/miniconda.sh -O  https://repo.continuum.io/miniconda/Miniconda3-4.
      /opt/conda/bin/conda clean -ya
 ENV PATH /opt/conda/envs/py35/bin:$PATH
 
-RUN ["/bin/bash", "-c", "source activate py35 && pip install fire toolz cupy==2.0.0rc1 chainer==3.0.0rc1"]
+RUN bash -c "source activate py35 && \
+			 pip install fire toolz scikit-learn cupy==2.0.0rc1 chainer==3.0.0rc1 && \
+			 git clone https://github.com/msalvaris/gpu_monitor.git && \
+			 pip install -e gpu_monitor"
 
 COPY ssh_config /root/.ssh/config
 RUN apt-get update && apt-get install -y --no-install-recommends \

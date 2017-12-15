@@ -1,6 +1,8 @@
 FROM tensorflow/tensorflow:latest-gpu
 
-RUN pip install fire toolz
+RUN pip install fire toolz scikit-learn
+RUN git clone https://github.com/msalvaris/gpu_monitor.git && \
+	pip install -e gpu_monitor
 
 COPY ssh_config /root/.ssh/config
 RUN apt-get update && apt-get install -y --no-install-recommends \
