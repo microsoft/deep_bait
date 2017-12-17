@@ -1,10 +1,14 @@
 FROM caffe2ai/caffe2:c2v0.8.1.cuda8.cudnn7.ubuntu16.04
 
+RUN pip install fire toolz jupyter scipy scikit-learn
+
 COPY ssh_config /root/.ssh/config
 RUN apt-get update && apt-get install -y --no-install-recommends \
         openssh-client \
         openssh-server \
         iproute2 \
+        git \
+        pandoc \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     # configure ssh server and keys
@@ -17,7 +21,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && chmod 700 /root/.ssh \
     && cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys
 
-RUN pip install fire toolz jupyter scipy scikit-learn
 RUN git clone https://github.com/msalvaris/gpu_monitor.git &&
 	pip install -e gpu_monitor
 
