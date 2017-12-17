@@ -3,6 +3,9 @@ FROM mxnet/python:gpu
 RUN alias python=python3
 RUN alias pip=pip3
 
+RUN echo 'alias python=python3' >> ~/.bashrc
+RUN echo 'alias pip=pip3' >> ~/.bashrc
+
 COPY ssh_config /root/.ssh/config
 RUN apt-get update && apt-get install -y --no-install-recommends \
         openssh-client \
@@ -23,10 +26,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys
 
 
-RUN pip install fire toolz jupyter scipy scikit-learn
+RUN pip3 install fire toolz jupyter scipy scikit-learn
 
 RUN git clone https://github.com/msalvaris/gpu_monitor.git && \
-	pip install -e gpu_monitor
+	pip3 install -e gpu_monitor
 
 EXPOSE 23
 CMD ["/usr/sbin/sshd", "-D", "-p", "23"]
