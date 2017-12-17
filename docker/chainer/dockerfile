@@ -20,11 +20,6 @@ RUN curl -o ~/miniconda.sh -O  https://repo.continuum.io/miniconda/Miniconda3-4.
      /opt/conda/bin/conda clean -ya
 ENV PATH /opt/conda/envs/py35/bin:$PATH
 
-RUN bash -c "source activate py35 && \
-			 pip install fire toolz scikit-learn cupy==2.0.0rc1 chainer==3.0.0rc1 && \
-			 git clone https://github.com/msalvaris/gpu_monitor.git && \
-			 pip install -e gpu_monitor"
-
 COPY ssh_config /root/.ssh/config
 RUN apt-get update && apt-get install -y --no-install-recommends \
         openssh-client \
@@ -42,6 +37,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && chmod 700 /root/.ssh \
     && cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys
 
+
+RUN bash -c "source activate py35 && \
+			 pip install fire toolz scikit-learn cupy==2.0.0rc1 chainer==3.0.0rc1 && \
+			 git clone https://github.com/msalvaris/gpu_monitor.git && \
+			 pip install -e gpu_monitor"
 
 EXPOSE 23
 CMD ["/usr/sbin/sshd", "-D", "-p", "23"]

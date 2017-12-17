@@ -1,14 +1,13 @@
 FROM tensorflow/tensorflow:latest-gpu
 
-RUN pip install fire toolz scikit-learn
-RUN git clone https://github.com/msalvaris/gpu_monitor.git && \
-	pip install -e gpu_monitor
+
 
 COPY ssh_config /root/.ssh/config
 RUN apt-get update && apt-get install -y --no-install-recommends \
         openssh-client \
         openssh-server \
         iproute2 \
+        git \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     # configure ssh server and keys
@@ -21,6 +20,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && chmod 700 /root/.ssh \
     && cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys
 
+RUN pip install fire toolz scikit-learn
+RUN git clone https://github.com/msalvaris/gpu_monitor.git && \
+	pip install -e gpu_monitor
 
 EXPOSE 23
 CMD ["/usr/sbin/sshd", "-D", "-p", "23"]
