@@ -107,7 +107,7 @@ exec-chainer:
 	$(call execute_notebook, $(CHAINER_IMAGE), , Chainer_CIFAR.ipynb /mnt/output/Chainer_NEW.ipynb --EPOCHS=5 )
 
 exec-mxnet:
-	$(call execute_notebook, $(MXNET_IMAGE), , MXNet_CIFAR.ipynb /mnt/output/MXNet_NEW.ipynb python2 --EPOCHS=5)
+	$(call execute_notebook, $(MXNET_IMAGE), , MXNet_CIFAR.ipynb /mnt/output/MXNet_NEW.ipynb python3 --EPOCHS=5)
 
 exec-caffe2:
 	$(call execute_notebook, $(CAFFE2_IMAGE), , Caffe2_CIFAR.ipynb /mnt/output/Caffe2_NEW.ipynb python2 --EPOCHS=5)
