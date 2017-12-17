@@ -22,10 +22,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN git clone https://github.com/msalvaris/gpu_monitor.git
 
 RUN bash -c "source /cntk/activate-cntk && \
-			 pip install fire toolz scikit-learn"
+			 pip install fire toolz scikit-learn bokeh==0.12.6 pandas==0.19.1 pypandoc==1.4 influxdb==5.0.0"
 
 RUN bash -c "source /cntk/activate-cntk && \
-			 pip install -e gpu_monitor"
+			 pip install --no-deps -e gpu_monitor"
 
 EXPOSE 23
 CMD ["/usr/sbin/sshd", "-D", "-p", "23"]
