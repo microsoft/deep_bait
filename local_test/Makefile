@@ -84,7 +84,7 @@ define execute_notebook
  $(prepare_data) && \
  $(2) \
  cd /mnt/script && \
- python -u nb_execute.py $(3) "
+ python3 -u nb_execute.py $(3) "
 endef
 
 help:
