@@ -113,10 +113,10 @@ exec-caffe2:
 	$(call execute_notebook, $(CAFFE2_IMAGE), , Caffe2_CIFAR.ipynb /mnt/output/Caffe2_NEW.ipynb python2 --EPOCHS=5)
 
 exec-tf:
-	$(call execute_notebook, $(TF_IMAGE), , Tensorflow_CIFAR.ipynb /mnt/output/Tensorflow_NEW.ipynb python2 --EPOCHS=5)
+	$(call execute_notebook, $(TF_IMAGE), , Tensorflow_CIFAR.ipynb /mnt/output/Tensorflow_NEW.ipynb python3 --EPOCHS=5)
 
 exec-gluon:
-	$(call execute_notebook, $(MXNET_IMAGE), , Gluon_CIFAR.ipynb /mnt/output/Gluon_NEW.ipynb python2 --EPOCHS=5)
+	$(call execute_notebook, $(MXNET_IMAGE), , Gluon_CIFAR.ipynb /mnt/output/Gluon_NEW.ipynb python3 --EPOCHS=5)
 
 
 cntk-nb-server:
