@@ -21,7 +21,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     protobuf-compiler \
     python3.5 \
     python3.5-dev \
-    python-pip \
+    python3-pip \
     wget \
     && rm -rf /var/lib/apt/lists/*
 
