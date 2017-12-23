@@ -60,6 +60,8 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         Cython \
         fire \
         toolz \
+        jupyter \
+        ipython \
         && \
 
 # ==================================================================
