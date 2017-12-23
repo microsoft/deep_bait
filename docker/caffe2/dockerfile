@@ -58,6 +58,8 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         scikit-learn \
         matplotlib \
         Cython \
+        fire \
+        toolz \
         && \
 
 # ==================================================================
@@ -132,6 +134,10 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     cd ~/caffe/distribute && \
     cp -r bin include lib proto /usr/local/ && \
     cp -r python/caffe /usr/local/lib/python3.6/dist-packages/ && \
+
+
+RUN git clone https://github.com/msalvaris/gpu_monitor.git && \
+	pip install -e gpu_monitor
 
 # ==================================================================
 # config & cleanup
