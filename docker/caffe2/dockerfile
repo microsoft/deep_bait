@@ -1,4 +1,4 @@
-FROM nvidia/cuda:8.0-cudnn7-devel-ubuntu16.04
+FROM nvidia/cuda:8.0-cudnn6-devel-ubuntu16.04
 
 # caffe2 install with gpu support
 
@@ -19,17 +19,17 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     openmpi-bin \
     openmpi-doc \
     protobuf-compiler \
-    python3.5 \
-    python3.5-dev \
-    python3-pip \
+    python-dev \
+    python-numpy \
+    python-pip \
+    python-pydot \
+    python-setuptools \
+    python-scipy \
     wget \
     && rm -rf /var/lib/apt/lists/*
 
-RUN ln -s /usr/bin/python3.5 /usr/local/bin/python3 && \
-	ln -s /usr/bin/python3.5 /usr/local/bin/python
-
-RUN pip3 install --no-cache-dir --upgrade pip setuptools wheel && \
-    pip3 install --no-cache-dir \
+RUN pip install --no-cache-dir --upgrade pip setuptools wheel && \
+    pip install --no-cache-dir \
     flask \
     future \
     graphviz \
@@ -46,14 +46,10 @@ RUN pip3 install --no-cache-dir --upgrade pip setuptools wheel && \
     scipy \
     setuptools \
     six \
-    tornado \
-    fire \
-    toolz \
-    scikit-learn
-
+    tornado
 
 ########## INSTALLATION STEPS ###################
-RUN git clone --branch v0.8.0 --recursive https://github.com/caffe2/caffe2.git
+RUN git clone --branch v0.8.1 --recursive https://github.com/caffe2/caffe2.git
 RUN cd caffe2 && mkdir build && cd build \
     && cmake .. \
     -DCUDA_ARCH_NAME=Manual \
@@ -68,29 +64,3 @@ RUN cd caffe2 && mkdir build && cd build \
     && rm -rf build
 
 ENV PYTHONPATH /usr/local
-
-COPY ssh_config /root/.ssh/config
-RUN apt-get update && apt-get install -y --no-install-recommends \
-        openssh-client \
-        openssh-server \
-        iproute2 \
-        git \
-        pandoc \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* \
-    # configure ssh server and keys
-    && mkdir /var/run/sshd \
-    && ssh-keygen -A \
-    && sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
-    && sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd \
-    && ssh-keygen -f /root/.ssh/id_rsa -t rsa -N '' \
-    && chmod 600 /root/.ssh/config \
-    && chmod 700 /root/.ssh \
-    && cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys
-
-RUN git clone https://github.com/msalvaris/gpu_monitor.git && \
-	pip install -e gpu_monitor
-
-EXPOSE 23
-CMD ["/usr/sbin/sshd", "-D", "-p", "23"]
-
