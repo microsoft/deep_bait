@@ -2,7 +2,7 @@ define PROJECT_HELP_MSG
 Usage:
     make help                   show this message
     make all                    make docker image of all DL frameworks
-    make build-all              push all docker images to docker hub
+    make push-all               push all docker images to docker hub
     make cntk                   make cntk BAIT image
     make push-cntk              push cntk BAIT image to docker hub
     make pytorch                make pytorch BAIT image
