@@ -28,8 +28,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN ln -s /usr/bin/python3.5 /usr/local/bin/python3 && \
 	ln -s /usr/bin/python3.5 /usr/local/bin/python
 
-RUN pip3 install --no-cache-dir --upgrade pip setuptools wheel && \
-    pip3 install --no-cache-dir \
+RUN pip install --no-cache-dir --upgrade pip setuptools wheel && \
+    pip install --no-cache-dir \
     flask \
     future \
     graphviz \
