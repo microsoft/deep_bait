@@ -2,8 +2,8 @@ FROM mxnet/python:gpu
 
 RUN rm /usr/bin/python &&\
 	ln -s /usr/bin/python3 /usr/bin/python &&\
-	rm /usr/bin/pip &&\
-	ln -s /usr/bin/pip3 /usr/bin/pip
+	rm /usr/local/bin/pip &&\
+	ln -s /usr/local/bin/pip3 /usr/bin/pip
 
 COPY ssh_config /root/.ssh/config
 RUN apt-get update && apt-get install -y --no-install-recommends \
