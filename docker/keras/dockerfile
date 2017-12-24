@@ -48,7 +48,7 @@ RUN conda install -y python=${python_version} && \
     pip install https://cntk.ai/PythonWheel/GPU/cntk-2.1-cp35-cp35m-linux_x86_64.whl && \
     conda install Pillow scikit-learn notebook pandas matplotlib mkl nose pyyaml six h5py && \
     conda install pygpu bcolz && \
-    pip install fire toolz scikit-learn bokeh==0.12.6 pandas==0.19.1 pypandoc==1.4 influxdb==5.0.0 requests>=2.17.0 && \
+    pip install --upgrade fire toolz scikit-learn bokeh==0.12.6 pandas==0.19.1 pypandoc==1.4 influxdb==5.0.0 requests>=2.17.0 && \
     git clone git://github.com/fchollet/keras.git /src && pip install -e /src[tests] && \
     pip install git+git://github.com/fchollet/keras.git && \
 	git clone https://github.com/msalvaris/gpu_monitor.git && \
