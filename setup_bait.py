@@ -154,7 +154,7 @@ def submit_mxnet_job(job_name='run_mxnet'):
 
     command = 'bash -c "\
 	cd $AZ_BATCHAI_INPUT_SCRIPT && \
-	python -u nb_execute.py MXNet_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/MXNet_{}.ipynb python2 --EPOCHS=5"' \
+	python -u nb_execute.py MXNet_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/MXNet_{}.ipynb python3 --EPOCHS=5"' \
         .format(job_name)
     ut.create_job(config, current_cluster().id, job_name, 'masalvar/mxnet_bait', command)
 
@@ -167,7 +167,7 @@ def submit_gluon_job(job_name='run_gluon'):
 
     command = 'bash -c "\
 	cd $AZ_BATCHAI_INPUT_SCRIPT && \
-	python -u nb_execute.py Gluon_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Gluon_{}.ipynb python2 --EPOCHS=5"' \
+	python -u nb_execute.py Gluon_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Gluon_{}.ipynb python3 --EPOCHS=5"' \
         .format(job_name)
     ut.create_job(config, current_cluster().id, job_name, 'masalvar/mxnet_bait', command)
 
@@ -207,7 +207,7 @@ def submit_caffe2_job(job_name='run_caffe2'):
 
     command = 'bash -c "\
 	cd $AZ_BATCHAI_INPUT_SCRIPT && \
-	python -u nb_execute.py Caffe2_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Caffe2_{}.ipynb python2 --EPOCHS=5"' \
+	python -u nb_execute.py Caffe2_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Caffe2_{}.ipynb python3 --EPOCHS=5"' \
         .format(job_name)
     ut.create_job(config, current_cluster().id, job_name, 'masalvar/caffe2_bait', command)
 
@@ -234,7 +234,7 @@ def submit_tf_job(job_name='run_tf'):
 
     command = 'bash -c "\
 	cd $AZ_BATCHAI_INPUT_SCRIPT && \
-	python -u nb_execute.py Tensorflow_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Tensorflow_{}.ipynb python2 --EPOCHS=5"' \
+	python -u nb_execute.py Tensorflow_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Tensorflow_{}.ipynb python3 --EPOCHS=5"' \
         .format(job_name)
     ut.create_job(config, current_cluster().id, job_name, 'masalvar/tf_bait', command)
 
