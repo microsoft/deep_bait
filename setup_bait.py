@@ -14,7 +14,7 @@ import utilities as ut
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-NODE_COUNT = 4
+NODE_COUNT = 10
 CLUSTER_NAME = 'mync6'
 IMAGE_NAMES = ["masalvar/cntk_bait",
                "masalvar/chainer_bait",
