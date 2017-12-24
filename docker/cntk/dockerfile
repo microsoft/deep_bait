@@ -22,8 +22,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN git clone https://github.com/msalvaris/gpu_monitor.git
 
 RUN bash -c "source /cntk/activate-cntk && \
-			 pip install fire scikit-learn bokeh==0.12.6 pandas==0.19.1 pypandoc==1.4 influxdb==5.0.0 &&\
-			 pip install --upgrade requests toolz"
+			 pip install fire toolz==0.8.2 scikit-learn bokeh==0.12.6 pandas==0.19.1 pypandoc==1.4 influxdb==5.0.0 &&\
+			 pip install --upgrade requests"
 
 
 RUN bash -c "source /cntk/activate-cntk && \
