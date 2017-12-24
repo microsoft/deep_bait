@@ -119,7 +119,7 @@ def _upload_job_scripts(job_name):
 
 
 
-def submit_cntk_job(job_name='run_cntk'):
+def submit_cntk_job(job_name='run_cntk', epochs=5):
     """ Submit CNTK job
     """
     logger.info('Submitting job {}'.format(job_name))
@@ -128,12 +128,12 @@ def submit_cntk_job(job_name='run_cntk'):
     command = 'bash -c "\
 	source /cntk/activate-cntk && \
 	cd $AZ_BATCHAI_INPUT_SCRIPT && \
-	python -u nb_execute.py CNTK_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/CNTK_{}.ipynb --EPOCHS=5"'\
-        .format(job_name)
+	python -u nb_execute.py CNTK_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/CNTK_{}.ipynb --EPOCHS={}"'\
+        .format(job_name, epochs)
     ut.create_job(config, current_cluster().id, job_name, 'masalvar/cntk_bait', command)
 
 
-def submit_chainer_job(job_name='run_chainer'):
+def submit_chainer_job(job_name='run_chainer', epochs=5):
     """ Submit Chainer job
     """
     logger.info('Submitting job {}'.format(job_name))
@@ -141,12 +141,12 @@ def submit_chainer_job(job_name='run_chainer'):
 
     command = 'bash -c "\
 	cd $AZ_BATCHAI_INPUT_SCRIPT && \
-	python -u nb_execute.py Chainer_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Chainer_{}.ipynb --EPOCHS=5"' \
-        .format(job_name)
+	python -u nb_execute.py Chainer_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Chainer_{}.ipynb --EPOCHS={}"' \
+        .format(job_name, epochs)
     ut.create_job(config, current_cluster().id, job_name, 'masalvar/chainer_bait', command)
 
 
-def submit_mxnet_job(job_name='run_mxnet'):
+def submit_mxnet_job(job_name='run_mxnet', epochs=5):
     """ Submit MXNet job
     """
     logger.info('Submitting job {}'.format(job_name))
@@ -154,12 +154,12 @@ def submit_mxnet_job(job_name='run_mxnet'):
 
     command = 'bash -c "\
 	cd $AZ_BATCHAI_INPUT_SCRIPT && \
-	python -u nb_execute.py MXNet_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/MXNet_{}.ipynb python3 --EPOCHS=5"' \
-        .format(job_name)
+	python -u nb_execute.py MXNet_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/MXNet_{}.ipynb --EPOCHS={}"' \
+        .format(job_name, epochs)
     ut.create_job(config, current_cluster().id, job_name, 'masalvar/mxnet_bait', command)
 
 
-def submit_gluon_job(job_name='run_gluon'):
+def submit_gluon_job(job_name='run_gluon', epochs=5):
     """ Submit Gluon job
     """
     logger.info('Submitting job {}'.format(job_name))
@@ -167,12 +167,12 @@ def submit_gluon_job(job_name='run_gluon'):
 
     command = 'bash -c "\
 	cd $AZ_BATCHAI_INPUT_SCRIPT && \
-	python -u nb_execute.py Gluon_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Gluon_{}.ipynb python3 --EPOCHS=5"' \
-        .format(job_name)
+	python -u nb_execute.py Gluon_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Gluon_{}.ipynb --EPOCHS={}"' \
+        .format(job_name, epochs)
     ut.create_job(config, current_cluster().id, job_name, 'masalvar/mxnet_bait', command)
 
 
-def submit_keras_cntk_job(job_name='run_keras_cntk'):
+def submit_keras_cntk_job(job_name='run_keras_cntk', epochs=5):
     """ Submit Keras with CNTK backend job
     """
     logger.info('Submitting job {}'.format(job_name))
@@ -181,12 +181,12 @@ def submit_keras_cntk_job(job_name='run_keras_cntk'):
     command = 'bash -c "\
 	cd $AZ_BATCHAI_INPUT_SCRIPT && \
 	printenv && \
-	python -u nb_execute.py Keras_CNTK_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Keras_CNTK_{}.ipynb --EPOCHS=5"' \
-        .format(job_name)
+	python -u nb_execute.py Keras_CNTK_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Keras_CNTK_{}.ipynb --EPOCHS={}"' \
+        .format(job_name, epochs)
     ut.create_job(config, current_cluster().id, job_name, 'masalvar/keras_bait', command)
 
 
-def submit_keras_tf_job(job_name='run_keras_tf'):
+def submit_keras_tf_job(job_name='run_keras_tf', epochs=5):
     """ Submit Keras with TF backend job
     """
     logger.info('Submitting job {}'.format(job_name))
@@ -194,12 +194,12 @@ def submit_keras_tf_job(job_name='run_keras_tf'):
 
     command = 'bash -c "\
 	cd $AZ_BATCHAI_INPUT_SCRIPT && \
-	python -u nb_execute.py Keras_TF_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Keras_TF_{}.ipynb --EPOCHS=5"' \
-        .format(job_name)
+	python -u nb_execute.py Keras_TF_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Keras_TF_{}.ipynb --EPOCHS={}"' \
+        .format(job_name, epochs)
     ut.create_job(config, current_cluster().id, job_name, 'masalvar/keras_bait', command)
 
 
-def submit_caffe2_job(job_name='run_caffe2'):
+def submit_caffe2_job(job_name='run_caffe2', epochs=5):
     """ Submit Caffe2 job
     """
     logger.info('Submitting job {}'.format(job_name))
@@ -207,12 +207,12 @@ def submit_caffe2_job(job_name='run_caffe2'):
 
     command = 'bash -c "\
 	cd $AZ_BATCHAI_INPUT_SCRIPT && \
-	python -u nb_execute.py Caffe2_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Caffe2_{}.ipynb python3 --EPOCHS=5"' \
-        .format(job_name)
+	python -u nb_execute.py Caffe2_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Caffe2_{}.ipynb --EPOCHS={}"' \
+        .format(job_name, epochs)
     ut.create_job(config, current_cluster().id, job_name, 'masalvar/caffe2_bait', command)
 
 
-def submit_pytorch_job(job_name='run_pytorch'):
+def submit_pytorch_job(job_name='run_pytorch', epochs=5):
     """ Submit Pytorch job
     """
     logger.info('Submitting job {}'.format(job_name))
@@ -221,12 +221,12 @@ def submit_pytorch_job(job_name='run_pytorch'):
     command = 'bash -c "\
 	cd $AZ_BATCHAI_INPUT_SCRIPT && \
 	df -h && \
-	python -u nb_execute.py Pytorch_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Pytorch_{}.ipynb --EPOCHS=5"' \
-        .format(job_name)
+	python -u nb_execute.py Pytorch_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Pytorch_{}.ipynb --EPOCHS={}"' \
+        .format(job_name, epochs)
     ut.create_job(config, current_cluster().id, job_name, 'masalvar/pytorch_bait', command)
 
 
-def submit_tf_job(job_name='run_tf'):
+def submit_tf_job(job_name='run_tf', epochs=5):
     """ Submit Tensorflow job
     """
     logger.info('Submitting job {}'.format(job_name))
@@ -234,8 +234,8 @@ def submit_tf_job(job_name='run_tf'):
 
     command = 'bash -c "\
 	cd $AZ_BATCHAI_INPUT_SCRIPT && \
-	python -u nb_execute.py Tensorflow_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Tensorflow_{}.ipynb python3 --EPOCHS=5"' \
-        .format(job_name)
+	python -u nb_execute.py Tensorflow_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Tensorflow_{}.ipynb --EPOCHS={}"' \
+        .format(job_name, epochs)
     ut.create_job(config, current_cluster().id, job_name, 'masalvar/tf_bait', command)
 
 
@@ -289,18 +289,21 @@ def print_job_status(job_name):
     ut.print_job_status(job)
 
 
-def submit_all():
+def submit_all(epochs=5):
     """ Submits all jobs
     """
-    submit_cntk_job()
-    submit_chainer_job()
-    submit_mxnet_job()
-    submit_keras_cntk_job()
-    submit_keras_tf_job()
-    submit_caffe2_job()
-    submit_pytorch_job()
-    submit_tf_job()
-    submit_gluon_job()
+    jobs = (submit_cntk_job,
+            submit_chainer_job,
+            submit_mxnet_job,
+            submit_keras_cntk_job,
+            submit_keras_tf_job,
+            submit_caffe2_job,
+            submit_pytorch_job,
+            submit_tf_job,
+            submit_gluon_job)
+
+    for job in jobs:
+        job(epochs=epochs)
 
 
 def delete_all_jobs():
