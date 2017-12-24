@@ -1,7 +1,9 @@
 FROM mxnet/python:gpu
 
-RUN echo 'alias python=python3' >> ~/.bashrc
-RUN echo 'alias pip=pip3' >> ~/.bashrc
+RUN rm /usr/bin/python &&\
+	ln -s /usr/bin/python3.6 /usr/bin/python &&\
+	rm /usr/bin/pip &&\
+	ln -s /usr/bin/pip3 /usr/bin/pip
 
 COPY ssh_config /root/.ssh/config
 RUN apt-get update && apt-get install -y --no-install-recommends \
