@@ -315,10 +315,10 @@ def delete_all_jobs():
 def print_jobs():
     """ Print information for all jobs
     """
-    ut.print_jobs_for(client)
+    ut.print_jobs_for(client, resource_group=config.group_name)
 
 
 def print_jobs_summary():
     """ Prints a summary of current jobs submitted to the cluster
     """
-    ut.print_jobs_summary_for(client)
+    ut.print_jobs_summary_for(client, resource_group=config.group_name)
