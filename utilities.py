@@ -316,20 +316,23 @@ def cluster_parameters_for(config, container_settings, volumes):
         )
     )
 
-def jobs_list_for(client):
-    return [job.as_dict() for job in client.jobs.list()]
+def jobs_list_for(client, resource_group=None):
+    jobs_generator = client.jobs.list() if resource_group is None else client.jobs.list_by_resource_group(resource_group)
+    return [job.as_dict() for job in jobs_generator]
 
-def print_jobs_for(client):
-    pprint.pprint(jobs_list_for(client))
 
-def print_jobs_summary_for(client):
-    for job in jobs_list_for(client):
+def print_jobs_for(client, resource_group=None):
+    pprint.pprint(jobs_list_for(client, resource_group=resource_group))
+
+
+def print_jobs_summary_for(client, resource_group=None):
+    for job in jobs_list_for(client, resource_group=resource_group):
         print('{}: status:{} | exit-code {}'.format(job['name'],
                                                      job['execution_state'],
                                                      job.get('execution_info', dict()).get('exit_code', None)))
 
 
 def delete_all_jobs_for(resource_group, client):
-    for job in jobs_list_for(client):
+    for job in jobs_list_for(client, resource_group=resource_group):
         logger.info('Deleting {}'.format(job['name']))
         client.jobs.delete(resource_group, job['name'])
