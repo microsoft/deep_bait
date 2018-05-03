@@ -43,8 +43,7 @@ RUN curl -o ~/miniconda.sh -O  https://repo.continuum.io/miniconda/Miniconda3-la
 ENV PATH /opt/conda/envs/caffe2-py$PYTHON_VERSION/bin:$PATH
 
 RUN pip install --upgrade pip && \
-    pip install protobuf toolz && \
-    conda clean -yt
+    pip install protobuf toolz
 
 RUN git clone --recursive https://github.com/caffe2/caffe2.git && cd caffe2 &&\
 	make && cd build && make install &&\
