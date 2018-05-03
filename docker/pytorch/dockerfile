@@ -23,7 +23,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN bash -c "source activate pytorch-py35 && \
 			 pip install fire toolz scikit-learn && \
 			 git clone https://github.com/msalvaris/gpu_monitor.git && \
-			 pip install gpu_monitor/requirements.txt && \
+			 pip install -r gpu_monitor/requirements.txt && \
 			 pip install -e gpu_monitor"
 
 EXPOSE 23
