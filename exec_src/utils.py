@@ -83,12 +83,15 @@ def cifar_for_library(datapath, channel_first=True, one_hot=False):
 
 def create_logger(influx_client, **tags):
     def logger(measurement, **fields):
-        influx_client.write_points([{
-            "measurement": measurement,
-            "tags": tags,
-            "time": datetime.now().strftime('%Y-%m-%dT%H:%M:%S%z'),
-            "fields": fields
-        }])
+        try:
+            influx_client.write_points([{
+                "measurement": measurement,
+                "tags": tags,
+                "time": datetime.now().strftime('%Y-%m-%dT%H:%M:%S%z'),
+                "fields": fields
+            }])
+        except:
+            pass
     return logger
 
 
