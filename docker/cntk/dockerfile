@@ -27,6 +27,7 @@ RUN bash -c "source /cntk/activate-cntk && \
 
 
 RUN bash -c "source /cntk/activate-cntk && \
+			 pip install -r gpu_monitor/requirements.txt && \
 			 pip install --no-deps -e gpu_monitor"
 
 EXPOSE 23

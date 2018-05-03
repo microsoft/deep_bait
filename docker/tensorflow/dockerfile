@@ -21,6 +21,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 RUN pip install fire toolz scikit-learn
 RUN git clone https://github.com/msalvaris/gpu_monitor.git && \
+	pip install -r gpu_monitor/requirements.txt && \
 	pip install -e gpu_monitor
 
 EXPOSE 23

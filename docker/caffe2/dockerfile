@@ -73,6 +73,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys
 
 RUN git clone https://github.com/msalvaris/gpu_monitor.git && \
+    pip install -r gpu_monitor/requirements.txt && \
 	pip install -e gpu_monitor
 
 EXPOSE 23
