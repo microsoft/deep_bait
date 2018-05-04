@@ -34,7 +34,7 @@ RUN mkdir -p $CONDA_DIR && \
     rm Miniconda3-4.2.12-Linux-x86_64.sh
 
 # Python
-ARG python_version=3.5
+ARG python_version=3.6
 
 ENV PATH /opt/conda/envs/py$PYTHON_VERSION/bin:$PATH
 
