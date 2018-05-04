@@ -44,7 +44,7 @@ RUN mkdir -p /src
 RUN conda install -y python=${python_version} && \
     pip install --upgrade pip && \
     pip install tensorflow-gpu==1.4.1 && \
-    pip install https://cntk.ai/PythonWheel/GPU/cntk-2.1-cp35-cp35m-linux_x86_64.whl && \
+    pip install https://cntk.ai/PythonWheel/GPU/cntk-2.2-cp35-cp35m-linux_x86_64.whl && \
     conda install Pillow scikit-learn notebook pandas matplotlib mkl nose pyyaml six h5py && \
     conda install pygpu bcolz && \
     pip install fire toolz==0.8.2 scikit-learn bokeh==0.12.6 pandas==0.19.1 pypandoc==1.4 influxdb==5.0.0 requests>=2.17.0 pip==8.1.2&& \
@@ -54,6 +54,8 @@ RUN conda install -y python=${python_version} && \
 	pip install -r gpu_monitor/requirements.txt && \
 	pip install --no-deps -e gpu_monitor && \
     conda clean -yt
+
+LD_LIBRARY_PATH=/opt/conda/envs/py$PYTHON_VERSION/lib
 
 ENV PYTHONPATH='/src/:$PYTHONPATH'
 
