@@ -12,8 +12,8 @@ import requests
 from azure.common.credentials import ServicePrincipalCredentials
 from azure.storage.file import FileService
 
-logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 POLLING_INTERVAL_SEC = 5
 
@@ -72,7 +72,7 @@ class OutputStreamer:
             files = self.client.jobs.list_output_files(
                 self.resource_group, self.job_name,
                 models.JobsListOutputFilesOptions(
-                    self.output_directory_id))
+                    outputdirectoryid=self.output_directory_id))
             if not files:
                 return
             else:
@@ -248,12 +248,12 @@ def create_job(config, cluster_id, job_name, image_name, command, number_of_vms=
 
     parameters = models.job_create_parameters.JobCreateParameters(
         location=config.location,
-        cluster=models.ResourceId(cluster_id),
+        cluster=models.ResourceId(id=cluster_id),
         node_count=number_of_vms,
         input_directories=input_directories,
         std_out_err_path_prefix=std_output_path_prefix,
         output_directories=output_directories,
-        container_settings=models.ContainerSettings(models.ImageSourceRegistry(image=image_name)),
+        container_settings=models.ContainerSettings(image_source_registry=models.ImageSourceRegistry(image=image_name)),
         custom_toolkit_settings=models.CustomToolkitSettings(command_line=command))
 
 
@@ -268,7 +268,7 @@ def wait_for_job(config, job_name):
 
 def setup_cluster(config):
     client = client_from(config)
-    container_setting_for = lambda img: models.ContainerSettings(image_source_registry=models.ImageSourceRegistry(img))
+    container_setting_for = lambda img: models.ContainerSettings(image_source_registry=models.ImageSourceRegistry(image=img))
     container_settings = [container_setting_for(img) for img in config.image_names]
 
     volumes = create_volume(config.storage_account['name'],config.storage_account['key'], config.fileshare_name, config.fileshare_mount_point)

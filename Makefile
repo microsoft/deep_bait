@@ -41,6 +41,8 @@ create-service-principal:
 select-subscription:
 	az login -o table
 	az account set --subscription "$(SELECTED_SUBSCRIPTION)"
+	ln -s /anaconda/envs/py35/bin/conda /home/mat/repos/deep_bait/envs/default/bin/conda
+
 
 create-storage:
 	@echo "Creating storage account"

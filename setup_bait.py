@@ -1,18 +1,18 @@
 ''' Script that sets everything up and introduces helper functions into the namespace
 '''
+
 import logging
+logging.basicConfig(level=logging.ERROR)
 import os
 from glob import iglob
 from itertools import chain
 from os import path
 from pprint import pprint
-
+import utilities as ut
 import azure.mgmt.batchai.models as models
 
-import utilities as ut
-
-logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 NODE_COUNT = 10
 CLUSTER_NAME = 'mync6'
@@ -274,7 +274,7 @@ def download_files(job_name, output_id, output_folder=None):
     if output_folder:
         logger.info('Downloading files to {}'.format(output_folder))
 
-    files = client.jobs.list_output_files(config.group_name, job_name, models.JobsListOutputFilesOptions(output_id))
+    files = client.jobs.list_output_files(config.group_name, job_name, models.JobsListOutputFilesOptions(outputdirectoryid=output_id))
     for file in files:
         logger.info('Downloading {}'.format(file.name))
         file_name = path.join(output_folder, file.name) if output_folder else file.name

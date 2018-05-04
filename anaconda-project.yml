@@ -45,6 +45,7 @@ variables:
   TENANT:
   SUBSCRIPTION_ID:
   STORAGE_ACCOUNT_KEY:
+
 downloads:
   DATA:
     filename: data/cifar-10-python.tar.gz
@@ -75,7 +76,9 @@ env_specs:
     packages:
     - anaconda-project
     - pip:
-      - msrest==0.4.29
+      - olefile
+      - keyring
+      - msrestazure
       - fire==0.1.2
       - toolz==0.8.2
       - requests==2.18.4
