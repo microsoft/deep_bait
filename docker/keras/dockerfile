@@ -55,7 +55,7 @@ RUN conda install -y python=${python_version} && \
 	pip install --no-deps -e gpu_monitor && \
     conda clean -yt
 
-LD_LIBRARY_PATH=/opt/conda/envs/py$PYTHON_VERSION/lib
+ENV LD_LIBRARY_PATH=/opt/conda/envs/py$PYTHON_VERSION/lib
 
 ENV PYTHONPATH='/src/:$PYTHONPATH'
 
