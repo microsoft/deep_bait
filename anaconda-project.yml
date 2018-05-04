@@ -75,7 +75,7 @@ env_specs:
     packages:
     - anaconda-project
     - pip:
-      - msrest==0.4.16
+      - msrest==0.4.29
       - fire==0.1.2
       - toolz==0.8.2
       - requests==2.18.4
