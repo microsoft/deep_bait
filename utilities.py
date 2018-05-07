@@ -215,7 +215,8 @@ def wait_for_job_completion(client, resource_group, job_name, cluster_name,
 def upload_scripts(config, job_name, filenames):
     service = FileService(config.storage_account['name'],
                           config.storage_account['key'])
-    service.create_directory(config.fileshare_name, job_name, fail_on_exist=False)
+    if not service.exists(config.fileshare_name, directory_name=job_name):
+        service.create_directory(config.fileshare_name, job_name, fail_on_exist=False)
     trasfer_file = lambda fname: service.create_file_from_path(config.fileshare_name, job_name, os.path.basename(fname), fname)
     for filename in filenames:
         trasfer_file(filename)

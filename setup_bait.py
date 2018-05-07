@@ -90,13 +90,13 @@ def delete_cluster():
     """
     return client.clusters.delete(config.group_name, config.cluster_name)
 
-
-def print_cluster_list():
+    
+def print_cluster_list(resource_group=config.group_name):
     """ Print cluster info
     """
-    pprint([cl.as_dict() for cl in client.clusters.list()])
+    pprint([cl.as_dict() for cl in client.clusters.list_by_resource_group(resource_group)])
 
-
+    
 def setup_cluster():
     """ Sets up the Batch AI cluster
     """
