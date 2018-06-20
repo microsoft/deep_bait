@@ -181,7 +181,7 @@ def wait_for_cluster(config, resource_group, workspace, cluster_name, polling_in
         time.sleep(polling_interval)
 
 
-def wait_for_job_completion(client, resource_group, job_name, cluster_name,
+def wait_for_job_completion(client, resource_group, workspace, experiment, job_name, cluster_name,
                             output_directory_id=None, file_name=None, polling_interval=POLLING_INTERVAL_SEC):
     """
     Waits for job completion and tails a file specified by output_directory_id
@@ -189,9 +189,9 @@ def wait_for_job_completion(client, resource_group, job_name, cluster_name,
     """
     # Wait for job to start running
     while True:
-        cluster = client.clusters.get(resource_group, cluster_name)
+        cluster = client.clusters.get(resource_group, workspace, cluster_name)
         print_cluster_status(cluster)
-        job = client.jobs.get(resource_group, job_name)
+        job = client.jobs.get(resource_group, workspace, experiment, job_name)
         print_job_status(job)
         if job.execution_state != models.ExecutionState.queued:
             break
@@ -222,7 +222,7 @@ def upload_scripts(config, job_name, filenames):
         trasfer_file(filename)
 
 
-def create_job(config, cluster_id, job_name, image_name, command, number_of_vms=1):
+def create_job(config, cluster_id, workspace, experiment, job_name, image_name, command, number_of_vms=1):
     ''' Creates job
     '''
 
@@ -259,7 +259,7 @@ def create_job(config, cluster_id, job_name, image_name, command, number_of_vms=
 
 
     client = client_from(config)
-    _ = client.jobs.create(config.group_name, job_name, parameters)
+    _ = client.jobs.create(config.group_name, workspace, experiment, job_name, parameters)
 
 
 def wait_for_job(config, job_name):
@@ -319,23 +319,23 @@ def cluster_parameters_for(config, container_settings, volumes):
         )
     )
 
-def jobs_list_for(client, resource_group=None):
-    jobs_generator = client.jobs.list() if resource_group is None else client.jobs.list_by_resource_group(resource_group)
+def jobs_list_for(client,  workspace, experiment, resource_group=None):
+    jobs_generator = client.jobs.list_by_experiment(resource_group, workspace, experiment)
     return [job.as_dict() for job in jobs_generator]
 
 
-def print_jobs_for(client, resource_group=None):
-    pprint.pprint(jobs_list_for(client, resource_group=resource_group))
+def print_jobs_for( workspace, experiment, client, resource_group=None):
+    pprint.pprint(jobs_list_for(client,  workspace, experiment, resource_group=resource_group))
 
 
-def print_jobs_summary_for(client, resource_group=None):
-    for job in jobs_list_for(client, resource_group=resource_group):
+def print_jobs_summary_for( workspace, experiment, client, resource_group=None):
+    for job in jobs_list_for(client,  workspace, experiment, resource_group=resource_group):
         print('{}: status:{} | exit-code {}'.format(job['name'],
                                                      job['execution_state'],
                                                      job.get('execution_info', dict()).get('exit_code', None)))
 
 
-def delete_all_jobs_for(resource_group, client):
-    for job in jobs_list_for(client, resource_group=resource_group):
+def delete_all_jobs_for(resource_group, workspace, experiment, client):
+    for job in jobs_list_for(workspace, experiment, client, resource_group=resource_group):
         logger.info('Deleting {}'.format(job['name']))
-        client.jobs.delete(resource_group, job['name'])
+        client.jobs.delete(resource_group, workspace, experiment, job['name'])
