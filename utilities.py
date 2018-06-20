@@ -267,14 +267,14 @@ def wait_for_job(config, job_name):
     wait_for_job_completion(client, config.group_name, job_name, config.cluster_name, 'stdOuterr', 'stdout.txt')
 
 
-def setup_cluster(config):
+def setup_cluster(config, workspace):
     client = client_from(config)
     container_setting_for = lambda img: models.ContainerSettings(image_source_registry=models.ImageSourceRegistry(image=img))
     container_settings = [container_setting_for(img) for img in config.image_names]
 
     volumes = create_volume(config.storage_account['name'],config.storage_account['key'], config.fileshare_name, config.fileshare_mount_point)
     parameters = cluster_parameters_for(config, container_settings, volumes)
-    _ = client.clusters.create(config.group_name, config.cluster_name, parameters)
+    _ = client.clusters.create(config.group_name, workspace, config.cluster_name, parameters)
 
 
 def write_json_to_file(json_dict, filename):

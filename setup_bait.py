@@ -97,10 +97,10 @@ def print_cluster_list(resource_group=config.group_name):
     pprint([cl.as_dict() for cl in client.clusters.list_by_resource_group(resource_group)])
 
     
-def setup_cluster():
+def setup_cluster(workspace):
     """ Sets up the Batch AI cluster
     """
-    ut.setup_cluster(config)
+    ut.setup_cluster(config, workspace)
 
 
 def wait_for_cluster():
