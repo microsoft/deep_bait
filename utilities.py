@@ -273,6 +273,8 @@ def setup_cluster(config, workspace):
     container_settings = [container_setting_for(img) for img in config.image_names]
 
     volumes = create_volume(config.storage_account['name'],config.storage_account['key'], config.fileshare_name, config.fileshare_mount_point)
+    _ = client.workspaces.create(config.group_name, workspace, config.location).result()
+
     parameters = cluster_parameters_for(config, container_settings, volumes)
     _ = client.clusters.create(config.group_name, workspace, config.cluster_name, parameters)
 
