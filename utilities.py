@@ -165,11 +165,11 @@ def print_cluster_status(cluster):
                 print('{0}: {1}'.format(detail.name, detail.value))
 
 
-def wait_for_cluster(config, resource_group, cluster_name, polling_interval=POLLING_INTERVAL_SEC):
+def wait_for_cluster(config, resource_group, workspace, cluster_name, polling_interval=POLLING_INTERVAL_SEC):
     client = client_from(config)
     while True:
         try:
-            cluster = client.clusters.get(resource_group, cluster_name)
+            cluster = client.clusters.get(resource_group, workspace, cluster_name)
             print_cluster_status(cluster)
             if (cluster.scale_settings.manual.target_node_count == cluster.current_node_count
                 and cluster.node_state_counts.preparing_node_count == 0 and

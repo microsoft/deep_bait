@@ -103,10 +103,10 @@ def setup_cluster(workspace):
     ut.setup_cluster(config, workspace)
 
 
-def wait_for_cluster():
+def wait_for_cluster(workspace):
     """ Will wait until the cluster is provisioned
     """
-    ut.wait_for_cluster(config, config.group_name, config.cluster_name)
+    ut.wait_for_cluster(config, config.group_name, workspace, config.cluster_name)
 
 
 ####### Jobs Functions #######################
