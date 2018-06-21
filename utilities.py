@@ -137,7 +137,7 @@ def print_job_status(job):
                 for detail in error.details:
                     failure_message += '{0}:{1}\n'.format(detail.name,
                                                           detail.value)
-    print('Job state: {0} ExitCode: {1}'.format(job.execution_state.name,
+    print('Job state: {0} ExitCode: {1}'.format(job.execution_state,
                                                 exit_code))
     if failure_message:
         print('FailureDetails: {0}'.format(failure_message))
