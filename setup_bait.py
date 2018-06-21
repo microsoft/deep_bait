@@ -290,7 +290,7 @@ def print_job_status(workspace, experiment, job_name):
     ut.print_job_status(job)
 
 
-def submit_all(epochs=5):
+def submit_all(workspace, experiment, epochs=5):
     """ Submits all jobs
     """
     jobs = (submit_cntk_job,
@@ -303,8 +303,9 @@ def submit_all(epochs=5):
             submit_tf_job,
             submit_gluon_job)
 
+    experiment = client.experiments.create(config.group_name, workspace, experiment).result()
     for job in jobs:
-        job(epochs=epochs)
+        job(workspace, experiment, epochs=epochs)
 
 
 def delete_all_jobs( workspace, experiment):

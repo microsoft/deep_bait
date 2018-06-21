@@ -225,7 +225,6 @@ def upload_scripts(config, job_name, filenames):
 def create_job(config, cluster_id, workspace, experiment, job_name, image_name, command, number_of_vms=1):
     ''' Creates job
     '''
-
     input_directories = [
         models.InputDirectory(
             id='SCRIPT',
