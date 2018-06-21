@@ -335,6 +335,6 @@ def print_jobs_summary_for( workspace, experiment, client, resource_group=None):
 
 
 def delete_all_jobs_for(resource_group, workspace, experiment, client):
-    for job in jobs_list_for(workspace, experiment, client, resource_group=resource_group):
+    for job in jobs_list_for(client, workspace, experiment, resource_group=resource_group):
         logger.info('Deleting {}'.format(job['name']))
         client.jobs.delete(resource_group, workspace, experiment, job['name'])
