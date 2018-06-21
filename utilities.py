@@ -53,7 +53,7 @@ class Configuration(object):
 class OutputStreamer:
     """Helper class to stream (tail -f) job's output files."""
 
-    def __init__(self, client, resource_group, job_name, output_directory_id,
+    def __init__(self, client, resource_group, workspace, experiment, job_name, output_directory_id,
                  file_name):
         self.client = client
         self.resource_group = resource_group
@@ -62,6 +62,8 @@ class OutputStreamer:
         self.file_name = file_name
         self.url = None
         self.downloaded = 0
+        self.workspace=workspace
+        self.experiment=experiment
         # if no output_directory_id or file_name specified, the tail call is
         # nope
         if self.output_directory_id is None or self.file_name is None:
@@ -70,7 +72,7 @@ class OutputStreamer:
     def tail(self):
         if not self.url:
             files = self.client.jobs.list_output_files(
-                self.resource_group, self.job_name,
+                self.resource_group, self.workspace, self.experiment, self.job_name,
                 models.JobsListOutputFilesOptions(
                     outputdirectoryid=self.output_directory_id))
             if not files:
@@ -200,7 +202,7 @@ def wait_for_job_completion(client, resource_group, workspace, experiment, job_n
     print('Waiting for job output to become available...')
 
     # Tail the output file and wait for job to complete
-    streamer = OutputStreamer(client, resource_group, job_name,
+    streamer = OutputStreamer(client, resource_group, workspace, experiment, job_name,
                               output_directory_id, file_name)
     while True:
         streamer.tail()
