@@ -246,7 +246,7 @@ def create_job(config, cluster_id, workspace, experiment, job_name, image_name, 
             path_suffix="notebooks")
     ]
 
-    parameters = models.job_create_parameters.JobCreateParameters(
+    parameters = models.JobCreateParameters(
         location=config.location,
         cluster=models.ResourceId(id=cluster_id),
         node_count=number_of_vms,
