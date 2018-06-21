@@ -290,6 +290,19 @@ def print_job_status(workspace, experiment, job_name):
     ut.print_job_status(job)
 
 
+def create_workspace(workspace):
+    _ = client.workspaces.create(config.group_name, workspace, config.location).result()
+
+def delete_workspace(workspace):
+    _ = client.workspaces.delete(config.group_name, workspace).result()
+
+def create_experiment(workspace, experiment):
+    _ = client.experiments.create(config.group_name, workspace, experiment).result()
+
+def delete_experiment(workspace, experiment):
+    _ = client.experiments.delete(config.group_name, workspace, experiment).result()
+
+
 def submit_all(workspace, experiment, epochs=5):
     """ Submits all jobs
     """
@@ -303,7 +316,6 @@ def submit_all(workspace, experiment, epochs=5):
             submit_tf_job,
             submit_gluon_job)
 
-    _ = client.experiments.create(config.group_name, workspace, experiment).result()
     for job in jobs:
         job(workspace, experiment, epochs=epochs)
 
