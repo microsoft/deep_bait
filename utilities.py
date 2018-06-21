@@ -261,9 +261,9 @@ def create_job(config, cluster_id, workspace, experiment, job_name, image_name, 
     _ = client.jobs.create(config.group_name, workspace, experiment, job_name, parameters)
 
 
-def wait_for_job(config, job_name):
+def wait_for_job(config, workspace, experiment, job_name):
     client = client_from(config)
-    wait_for_job_completion(client, config.group_name, job_name, config.cluster_name, 'stdOuterr', 'stdout.txt')
+    wait_for_job_completion(client, config.group_name, workspace, experiment, job_name, config.cluster_name, 'stdOuterr', 'stdout.txt')
 
 
 def setup_cluster(config, workspace):
