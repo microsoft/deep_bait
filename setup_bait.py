@@ -303,7 +303,7 @@ def submit_all(workspace, experiment, epochs=5):
             submit_tf_job,
             submit_gluon_job)
 
-    experiment = client.experiments.create(config.group_name, workspace, experiment).result()
+    _ = client.experiments.create(config.group_name, workspace, experiment).result()
     for job in jobs:
         job(workspace, experiment, epochs=epochs)
 
