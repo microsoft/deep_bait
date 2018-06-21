@@ -206,7 +206,7 @@ def wait_for_job_completion(client, resource_group, workspace, experiment, job_n
                               output_directory_id, file_name)
     while True:
         streamer.tail()
-        job = client.jobs.get(resource_group, job_name)
+        job = client.jobs.get(resource_group, workspace, experiment, job_name)
         if job.execution_state == models.ExecutionState.succeeded:
             break
         time.sleep(1)
