@@ -239,10 +239,10 @@ def submit_tf_job(workspace, experiment, job_name='run_tf', epochs=5):
     ut.create_job(config, current_cluster(workspace).id, workspace, experiment, job_name, 'masalvar/tf_bait', command)
 
 
-def wait_for_job(job_name):
+def wait_for_job(workspace, experiment, job_name):
     """ Wait for the job to finish
     """
-    ut.wait_for_job(config, job_name)
+    ut.wait_for_job(config, workspace, experiment, job_name)
 
 
 def delete_job(workspace, experiment, job_name):
