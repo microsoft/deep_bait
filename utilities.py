@@ -104,7 +104,7 @@ class OutputStreamer:
 
 def client_from(configuration):
     client = training.BatchAIManagementClient(
-			credentials = ServicePrincipalCredentials(client_id=configuration.client_id, secret=configuration.secret, token_uri=configuration.token),
+			credentials = ServicePrincipalCredentials(client_id=configuration.client_id, secret=configuration.secret, tenant=configuration.tenant),
 			subscription_id = configuration.subscription_id)
     return client
 
