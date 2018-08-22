@@ -71,7 +71,7 @@ prepare-data:
 
 create-env:
 	mkdir -p envs
-	conda create --file environment.yml -p $(shell readlink -f envs)
+	conda env create --file environment.yml -p $(shell readlink -f envs)
 
 clean:
 	rm -rf envs data .env
