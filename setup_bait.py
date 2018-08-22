@@ -24,6 +24,7 @@ IMAGE_NAMES = ["masalvar/cntk_bait",
                "masalvar/pytorch_bait",
                "masalvar/tf_bait"]
 
+LOGGER_URL="dbait.eastus.cloudapp.azure.com"
 
 def encode(value):
     if isinstance(value, type('str')):
@@ -128,8 +129,8 @@ def submit_cntk_job(workspace, experiment, job_name='run_cntk', epochs=5):
     command = 'bash -c "\
 	source /cntk/activate-cntk && \
 	cd $AZ_BATCHAI_INPUT_SCRIPT && \
-	python -u nb_execute.py CNTK_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/CNTK_{}.ipynb --EPOCHS={}"'\
-        .format(job_name, epochs)
+	python -u nb_execute.py CNTK_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/CNTK_{}.ipynb --EPOCHS={} --LOGGER_URL={}"'\
+        .format(job_name, epochs, LOGGER_URL)
     ut.create_job(config, current_cluster(workspace).id, workspace, experiment, job_name, 'masalvar/cntk_bait', command)
 
 
@@ -141,8 +142,8 @@ def submit_chainer_job(workspace, experiment, job_name='run_chainer', epochs=5):
 
     command = 'bash -c "\
 	cd $AZ_BATCHAI_INPUT_SCRIPT && \
-	python -u nb_execute.py Chainer_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Chainer_{}.ipynb --EPOCHS={}"' \
-        .format(job_name, epochs)
+	python -u nb_execute.py Chainer_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Chainer_{}.ipynb --EPOCHS={} --LOGGER_URL={}"' \
+        .format(job_name, epochs, LOGGER_URL)
     ut.create_job(config, current_cluster(workspace).id, workspace, experiment, job_name, 'masalvar/chainer_bait', command)
 
 
