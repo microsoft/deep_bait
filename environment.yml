@@ -1,0 +1,24 @@
+name: deep_bait
+dependencies:
+  - python=3.6
+  - scikit-learn=0.19
+  - ipython
+  - jupyter
+  - ipykernel
+  - numpy=1.13.1
+  - scipy=0.19.1
+  - pandas
+  - pip:
+    - olefile
+    - keyring
+    - msrestazure
+    - fire==0.1.2
+    - toolz==0.8.2
+    - requests==2.18.4
+    - nbconvert==5.1.1
+    - blobxfer==1.0.0
+    - azure-cli
+    - python-dotenv[cli]==0.7.1
+    - nbformat==4.4.0
+    - setuptools==36.5.0
+    - azure-storage==0.33.0

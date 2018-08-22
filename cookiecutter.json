@@ -1,0 +1,16 @@
+{
+  //  Azure subscription to create resources under
+  "selected_subscription": "Team Danielle Internal",
+  //  The name of the resource group to build everything under
+  "group_name": "dbaitrg",
+  //  The name of the storage account to use to transfer, data and scripts to Batch AI nodes
+  "storage_account_name": "dbaitstr",
+  // The location to create the resources under
+  "location": ["eastus", "southcentralus"],
+  // The name of the fileshare to create
+  "fileshare_name": "dbaitshare",
+  // Password to be used for the service principal
+  "service_principal_password": "password",
+  // The identifier for the service principal
+  "service_principal_app_name": "dbaitapp"
+}
