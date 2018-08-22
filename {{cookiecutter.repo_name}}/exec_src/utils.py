@@ -1,8 +1,8 @@
 import pickle
 import sys
-from os import path
 import timeit
 from datetime import datetime
+from os import path
 
 import numpy as np
 from sklearn.preprocessing import OneHotEncoder
