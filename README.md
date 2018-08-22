@@ -68,10 +68,10 @@ Once the environment is set up we need to install some further packages as well 
 ```bash
 anaconda-project run setup
 ```
-The command can take a while. If you want more information on what is going on you can use the --verbose flag. Pay attention since it will ask you to log in to your Azure account. If you want a better understanding of what is going on have a look at the [Makefile]({{cookiecutter.repo_name}}/Makefile)
+The command can take a while. If you want more information on what is going on you can use the --verbose flag. Pay attention since it will ask you to log in to your Azure account. If you want a better understanding of what is going on have a look at the [Makefile]({{cookiecutter.project_slug}}/Makefile)
 
 ## Run Batch AI
-Instructions on how to setup the cluster and start submitting jobs are detailed in [ExploringBatchAI]({{cookiecutter.repo_name}}/ExploringBatchAI.ipynb) notebook. To start it run the following command: 
+Instructions on how to setup the cluster and start submitting jobs are detailed in [ExploringBatchAI]({{cookiecutter.project_slug}}/ExploringBatchAI.ipynb) notebook. To start it run the following command: 
 
 ```bash
 anaconda-project run notebook --no-browser
@@ -88,7 +88,7 @@ anaconda-project run ipython -r setup_bait.py
 ```
 
 ## Local Development
-When executing jobs on services such as Batch AI it is important to iron out as many of the bugs before executing on the cluster. That is why with this project there is a folder called [local_test]({{cookiecutter.repo_name}}/local_test) that includes a Makefile that allows you to run notebook servers inside the containers as well as test the execution of the containers.
+When executing jobs on services such as Batch AI it is important to iron out as many of the bugs before executing on the cluster. That is why with this project there is a folder called [local_test]({{cookiecutter.project_slug}}/local_test) that includes a Makefile that allows you to run notebook servers inside the containers as well as test the execution of the containers.
 
 To run any of the notebooks:
 ```bash
