@@ -1,4 +1,4 @@
-name: deep_bait
+name: deepbait
 dependencies:
   - python=3.6
   - scikit-learn=0.19
