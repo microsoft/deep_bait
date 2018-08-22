@@ -155,8 +155,8 @@ def submit_mxnet_job(workspace, experiment, job_name='run_mxnet', epochs=5):
 
     command = 'bash -c "\
 	cd $AZ_BATCHAI_INPUT_SCRIPT && \
-	python -u nb_execute.py MXNet_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/MXNet_{}.ipynb --EPOCHS={}"' \
-        .format(job_name, epochs)
+	python -u nb_execute.py MXNet_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/MXNet_{}.ipynb --EPOCHS={} --LOGGER_URL={}"' \
+        .format(job_name, epochs, LOGGER_URL)
     ut.create_job(config, current_cluster(workspace).id, workspace, experiment, job_name, 'masalvar/mxnet_bait', command)
 
 
@@ -168,8 +168,8 @@ def submit_gluon_job(workspace, experiment, job_name='run_gluon', epochs=5):
 
     command = 'bash -c "\
 	cd $AZ_BATCHAI_INPUT_SCRIPT && \
-	python -u nb_execute.py Gluon_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Gluon_{}.ipynb --EPOCHS={}"' \
-        .format(job_name, epochs)
+	python -u nb_execute.py Gluon_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Gluon_{}.ipynb --EPOCHS={} --LOGGER_URL={}"' \
+        .format(job_name, epochs, LOGGER_URL)
     ut.create_job(config, current_cluster(workspace).id, workspace, experiment, job_name, 'masalvar/mxnet_bait', command)
 
 
@@ -182,8 +182,8 @@ def submit_keras_cntk_job(workspace, experiment, job_name='run_keras_cntk', epoc
     command = 'bash -c "\
 	cd $AZ_BATCHAI_INPUT_SCRIPT && \
 	printenv && \
-	python -u nb_execute.py Keras_CNTK_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Keras_CNTK_{}.ipynb --EPOCHS={}"' \
-        .format(job_name, epochs)
+	python -u nb_execute.py Keras_CNTK_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Keras_CNTK_{}.ipynb --EPOCHS={} --LOGGER_URL={}"' \
+        .format(job_name, epochs, LOGGER_URL)
     ut.create_job(config, current_cluster(workspace).id, workspace, experiment, job_name, 'masalvar/keras_bait', command)
 
 
@@ -195,8 +195,8 @@ def submit_keras_tf_job(workspace, experiment, job_name='run_keras_tf', epochs=5
 
     command = 'bash -c "\
 	cd $AZ_BATCHAI_INPUT_SCRIPT && \
-	python -u nb_execute.py Keras_TF_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Keras_TF_{}.ipynb --EPOCHS={}"' \
-        .format(job_name, epochs)
+	python -u nb_execute.py Keras_TF_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Keras_TF_{}.ipynb --EPOCHS={} --LOGGER_URL={}"' \
+        .format(job_name, epochs, LOGGER_URL)
     ut.create_job(config, current_cluster(workspace).id, workspace, experiment, job_name, 'masalvar/keras_bait', command)
 
 
@@ -208,8 +208,8 @@ def submit_caffe2_job(workspace, experiment, job_name='run_caffe2', epochs=5):
 
     command = 'bash -c "\
 	cd $AZ_BATCHAI_INPUT_SCRIPT && \
-	python -u nb_execute.py Caffe2_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Caffe2_{}.ipynb --EPOCHS={}"' \
-        .format(job_name, epochs)
+	python -u nb_execute.py Caffe2_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Caffe2_{}.ipynb --EPOCHS={} --LOGGER_URL={}"' \
+        .format(job_name, epochs, LOGGER_URL)
     ut.create_job(config, current_cluster(workspace).id, workspace, experiment, job_name, 'masalvar/caffe2_bait', command)
 
 
@@ -222,8 +222,8 @@ def submit_pytorch_job(workspace, experiment, job_name='run_pytorch', epochs=5):
     command = 'bash -c "\
 	cd $AZ_BATCHAI_INPUT_SCRIPT && \
 	df -h && \
-	python -u nb_execute.py Pytorch_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Pytorch_{}.ipynb --EPOCHS={}"' \
-        .format(job_name, epochs)
+	python -u nb_execute.py Pytorch_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Pytorch_{}.ipynb --EPOCHS={} --LOGGER_URL={}"' \
+        .format(job_name, epochs, LOGGER_URL)
     ut.create_job(config, current_cluster(workspace).id, workspace, experiment, job_name, 'masalvar/pytorch_bait', command)
 
 
@@ -235,8 +235,8 @@ def submit_tf_job(workspace, experiment, job_name='run_tf', epochs=5):
 
     command = 'bash -c "\
 	cd $AZ_BATCHAI_INPUT_SCRIPT && \
-	python -u nb_execute.py Tensorflow_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Tensorflow_{}.ipynb --EPOCHS={}"' \
-        .format(job_name, epochs)
+	python -u nb_execute.py Tensorflow_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Tensorflow_{}.ipynb --EPOCHS={} --LOGGER_URL={}"' \
+        .format(job_name, epochs, LOGGER_URL)
     ut.create_job(config, current_cluster(workspace).id, workspace, experiment, job_name, 'masalvar/tf_bait', command)
 
 
