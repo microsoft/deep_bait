@@ -53,7 +53,7 @@ get-password:
 	dotenv set SERVICE_PRINCIPAL_PWD $(shell read -s password)
 
 create-service-principal: get-password
-	$(eval app_id:=$(shell az ad sp create-for-rbac --name $(shell dotenv get SERVICE_PRINCIPAL_APP_NAME | cut -f2 -d"=") --password $(shell dotenv get SERVICE_PRINCIPAL_PWD| cut -f2 -d"=") |jq '.["appId"]'))
+	$(eval app_id:=$(shell az ad sp create-for-rbac --name $(call denv,SERVICE_PRINCIPAL_APP_NAME) --password $(call denv,SERVICE_PRINCIPAL_PWD) |jq '.["appId"]'))
 	$(eval subscription_id:=$(shell az account show |jq '.["id"]'))
 	$(eval tenant:=$(shell az account show |jq '.["tenantId"]'))
 	dotenv set APP_ID $(app_id)
@@ -66,13 +66,13 @@ select-subscription:
 
 create-storage:
 	@echo "Creating storage account"
-	az group create -n $(shell dotenv get GROUP_NAME) -l $(shell dotenv get LOCATION) -o table
-	az storage account create -l $(shell dotenv get LOCATION) -n $(shell dotenv get STORAGE_ACCOUNT_NAME) -g $(shell dotenv get GROUP_NAME) --sku Standard_LRS
+	az group create -n $(call denv,GROUP_NAME) -l $(call denv,LOCATION) -o table
+	az storage account create -l $(call denv,LOCATION) -n $(call denv,STORAGE_ACCOUNT_NAME) -g $(call denv,GROUP_NAME) --sku Standard_LRS
 
 set-storage:
-	$(eval azure_storage_key:=$(shell az storage account keys list -n $(shell dotenv get STORAGE_ACCOUNT_NAME) -g $(shell dotenv get GROUP_NAME) | jq '.[0]["value"]'))
-	$(eval azure_storage_account:= $(shell dotenv get STORAGE_ACCOUNT_NAME))
-	$(eval file_share_name:= $(shell dotenv get FILE_SHARE_NAME))
+	$(eval azure_storage_key:=$(shell az storage account keys list -n $(call denv,STORAGE_ACCOUNT_NAME) -g $(call denv,GROUP_NAME) | jq '.[0]["value"]'))
+	$(eval azure_storage_account:= $(call denv,STORAGE_ACCOUNT_NAME))
+	$(eval file_share_name:= $(call denv,FILE_SHARE_NAME))
 
 create-fileshare: set-storage
 	@echo "Creating fileshare"
