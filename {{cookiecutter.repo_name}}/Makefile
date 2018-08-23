@@ -48,7 +48,7 @@ get-password:
 	dotenv set SERVICE_PRINCIPAL_PWD $(shell read -s password)
 
 create-service-principal: get-password
-	$(eval app_id:=$(shell az ad sp create-for-rbac --name $(shell dotenv get SERVICE_PRINCIPAL_APP_NAME) --password $(shell dotenv get SERVICE_PRINCIPAL_PWD) |jq '.["appId"]'))
+	$(eval app_id:=$(shell az ad sp create-for-rbac --name $(shell dotenv get SERVICE_PRINCIPAL_APP_NAME | cut -f2 -d"=") --password $(shell dotenv get SERVICE_PRINCIPAL_PWD| cut -f2 -d"=") |jq '.["appId"]'))
 	$(eval subscription_id:=$(shell az account show |jq '.["id"]'))
 	$(eval tenant:=$(shell az account show |jq '.["tenantId"]'))
 	dotenv set APP_ID $(app_id)
@@ -57,8 +57,7 @@ create-service-principal: get-password
 
 select-subscription:
 	az login -o table
-	az account set --subscription "$(shell dotenv get SELECTED_SUBSCRIPTION)"
-	ln -s /anaconda/envs/py35/bin/conda /home/mat/repos/deep_bait/envs/default/bin/conda
+	az account set --subscription "$(shell dotenv get SELECTED_SUBSCRIPTION| cut -f2 -d"=")"
 
 create-storage:
 	@echo "Creating storage account"
