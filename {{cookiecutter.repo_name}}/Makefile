@@ -21,7 +21,7 @@ help:
 ###
 
 define denv
-	$(shell dotenv get $(1) | cut -f2 -d"=")
+$(shell dotenv get $(1)|cut -f2 -d"=")
 endef
 
 
