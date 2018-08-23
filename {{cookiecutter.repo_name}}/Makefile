@@ -20,6 +20,11 @@ help:
 # make initial-setup
 ###
 
+define denv
+	$(shell dotenv get $(1) | cut -f2 -d"=")
+endef
+
+
 initial-setup: install-az-cli install-blobxfer select-subscription register-azb create-service-principal create-storage create-fileshare set-storage-key transfer-to-fileshare
 	@echo "Setup complete"
 
@@ -44,7 +49,7 @@ register-azb:
 	az provider register -n Microsoft.BatchAI
 
 get-password:
-	echo -n Enter password for service principal:
+	@echo "Enter password for service principal:"
 	dotenv set SERVICE_PRINCIPAL_PWD $(shell read -s password)
 
 create-service-principal: get-password
@@ -57,7 +62,7 @@ create-service-principal: get-password
 
 select-subscription:
 	az login -o table
-	az account set --subscription "$(shell dotenv get SELECTED_SUBSCRIPTION| cut -f2 -d"=")"
+	az account set --subscription "$(call denv,SELECTED_SUBSCRIPTION)"
 
 create-storage:
 	@echo "Creating storage account"
