@@ -34,6 +34,7 @@ def create_env():
     print(os.getcwd())
     print(glob.glob("*"))
     make_process = subprocess.Popen("pwd", stderr=subprocess.STDOUT)
+    make_process.wait()
     # if make_process.wait() != 0:
     raise EnvException('Environment creation failed!! WHY oh WHY')
 
