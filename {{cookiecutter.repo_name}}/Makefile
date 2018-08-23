@@ -49,7 +49,7 @@ register-azb:
 	az provider register -n Microsoft.BatchAI
 
 get-password:
-	$(eval pwd:=$(shell echo "Enter password for service principal:" && read -s password))
+	$(eval pwd:=$(shell bash -c 'read -s -p "Enter password for service principal: " pwd; echo $$pwd'))
 	dotenv set SERVICE_PRINCIPAL_PWD $(pwd)
 
 create-service-principal: get-password
