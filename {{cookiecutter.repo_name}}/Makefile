@@ -96,7 +96,7 @@ clean:
 	rm -rf envs data .env
 
 delete-service-principal:
-	az ad sp delete --id $(call denv,SERVICE_PRINCIPAL_APP_NAME)
+	az ad sp delete --id $(call denv,APP_ID)
 
 delete-group:
 	az group delete -n $(call denv,GROUP_NAME)
