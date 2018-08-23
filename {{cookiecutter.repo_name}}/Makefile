@@ -83,7 +83,7 @@ download-data:
 
 set-storage-key: set-storage
 	@echo "Setting storage account key"
-	dotenv set STORAGE_ACCOUNT_KEY $(azure_storage_key)
+	dotenv set STORAGE_ACCOUNT_KEY "$(azure_storage_key)\n"
 
 prepare-data:
 	tar xzvf $(DATA) --directory $(shell dirname $(DATA))
