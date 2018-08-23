@@ -20,7 +20,7 @@ Usage:
 endef
 export PROJECT_HELP_MSG
 
-name_prefix:=masalvar
+name_prefix:={{cookiecutter.dockerhub}}
 
 help:
 	echo "$$PROJECT_HELP_MSG" | less

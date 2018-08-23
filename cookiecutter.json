@@ -6,5 +6,7 @@
   "storage_account_name": "dbaitstr",
   "location": ["eastus", "southcentralus"],
   "fileshare_name": "dbaitshare",
-  "service_principal_app_name": "dbaitapp"
+  "service_principal_app_name": "dbaitapp",
+  "dockerhub": "masalvar",
+  "data_location": "data"
 }

@@ -9,25 +9,24 @@ Usage:
 endef
 export PROJECT_HELP_MSG
 
-DATA:=data/cifar-10-python.tar.gz
+DATA:={{cookiecutter.data_location}}/cifar-10-python.tar.gz
 
 help:
 	@echo "$$PROJECT_HELP_MSG" | less
 
 ###
 # To set everything up run
-# make activate
+# source activate envs
 # make initial-setup
 ###
 
 initial-setup: install-az-cli install-blobxfer select-subscription register-azb create-service-principal create-storage create-fileshare set-storage-key transfer-to-fileshare
 	@echo "Setup complete"
 
-activate:
-	source activate envs
 
-deactivate:
-	source deactivate
+notebook:
+	dotenv run jupyter notebook --ip=* --port=9999 --no-browser
+
 
 transfer-to-fileshare: set-storage download-data prepare-data
 	@echo "Transfering data to fileshare"
@@ -49,7 +48,7 @@ get-password:
 	dotenv set SERVICE_PRINCIPAL_PWD $(shell read -s password)
 
 create-service-principal: get-password
-	$(eval app_id:=$(shell az ad sp create-for-rbac --name $(shell dotenv get SERVICE_PRINCIPAL_APP_NAME) --password $( shell dotenv get SERVICE_PRINCIPAL_PWD) |jq '.["appId"]'))
+	$(eval app_id:=$(shell az ad sp create-for-rbac --name $(shell dotenv get SERVICE_PRINCIPAL_APP_NAME) --password $(shell dotenv get SERVICE_PRINCIPAL_PWD) |jq '.["appId"]'))
 	$(eval subscription_id:=$(shell az account show |jq '.["id"]'))
 	$(eval tenant:=$(shell az account show |jq '.["tenantId"]'))
 	dotenv set APP_ID $(app_id)
@@ -63,13 +62,13 @@ select-subscription:
 
 create-storage:
 	@echo "Creating storage account"
-	az group create -n $(GROUP_NAME) -l $(LOCATION) -o table
-	az storage account create -l $(LOCATION) -n $(STORAGE_ACCOUNT_NAME) -g $(GROUP_NAME) --sku Standard_LRS
+	az group create -n $(shell dotenv get GROUP_NAME) -l $(shell dotenv get LOCATION) -o table
+	az storage account create -l $(shell dotenv get LOCATION) -n $(shell dotenv get STORAGE_ACCOUNT_NAME) -g $(shell dotenv get GROUP_NAME) --sku Standard_LRS
 
 set-storage:
-	$(eval azure_storage_key:=$(shell az storage account keys list -n $(STORAGE_ACCOUNT_NAME) -g $(GROUP_NAME) | jq '.[0]["value"]'))
-	$(eval azure_storage_account:= $(STORAGE_ACCOUNT_NAME))
-	$(eval file_share_name:= $(FILE_SHARE_NAME))
+	$(eval azure_storage_key:=$(shell az storage account keys list -n $(shell dotenv get STORAGE_ACCOUNT_NAME) -g $(shell dotenv get GROUP_NAME) | jq '.[0]["value"]'))
+	$(eval azure_storage_account:= $(shell dotenv get STORAGE_ACCOUNT_NAME))
+	$(eval file_share_name:= $(shell dotenv get FILE_SHARE_NAME))
 
 create-fileshare: set-storage
 	@echo "Creating fileshare"
@@ -91,6 +90,8 @@ create-env:
 
 clean:
 	rm -rf envs data .env
+
+# TODO resource deletion and service principal deletion
 
 
 .PHONY: help initial-setup install-blobxfer install-az-cli register-azb create-service-principal select-subscription create-storage set-storage create-fileshare transfer-to-fileshare set-storage-key prepare-data clean
