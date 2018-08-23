@@ -95,7 +95,12 @@ create-env:
 clean:
 	rm -rf envs data .env
 
-# TODO resource deletion and service principal deletion
+delete-service-principal:
+	az ad sp delete --id $(call denv,SERVICE_PRINCIPAL_APP_NAME)
+
+delete-group:
+	az group delete -n $(call denv,GROUP_NAME)
+
 
 
 .PHONY: help initial-setup install-blobxfer install-az-cli register-azb create-service-principal select-subscription create-storage set-storage create-fileshare transfer-to-fileshare set-storage-key prepare-data clean
