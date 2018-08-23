@@ -72,7 +72,7 @@ create-storage:
 set-storage:
 	$(eval azure_storage_key:=$(shell az storage account keys list -n $(call denv,STORAGE_ACCOUNT_NAME) -g $(call denv,GROUP_NAME) | jq '.[0]["value"]'))
 	$(eval azure_storage_account:= $(call denv,STORAGE_ACCOUNT_NAME))
-	$(eval file_share_name:= $(call denv,FILE_SHARE_NAME))
+	$(eval file_share_name:= $(call denv,FILESHARE_NAME))
 
 create-fileshare: set-storage
 	@echo "Creating fileshare"
