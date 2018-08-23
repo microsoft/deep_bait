@@ -14,9 +14,25 @@ DATA:=data/cifar-10-python.tar.gz
 help:
 	@echo "$$PROJECT_HELP_MSG" | less
 
+###
+# To set everything up run
+# make activate
+# make initial-setup
+###
 
 initial-setup: install-az-cli install-blobxfer select-subscription register-azb create-service-principal create-storage create-fileshare set-storage-key transfer-to-fileshare
 	@echo "Setup complete"
+
+activate:
+	source activate envs
+
+deactivate:
+	source deactivate
+
+transfer-to-fileshare: set-storage download-data prepare-data
+	@echo "Transfering data to fileshare"
+	blobxfer upload --mode file --storage-account-key $(azure_storage_key) --storage-account $(azure_storage_account) --remote-path $(file_share_name)/data --local-path $(shell dirname $(DATA))
+
 
 install-blobxfer:
 	pip install blobxfer==1.0.0
@@ -28,8 +44,12 @@ register-azb:
 	az provider register -n Microsoft.Batch
 	az provider register -n Microsoft.BatchAI
 
-create-service-principal:
-	$(eval app_id:=$(shell az ad sp create-for-rbac --name $(SERVICE_PRINCIPAL_APP_NAME) --password $(SERVICE_PRINCIPAL_PWD) |jq '.["appId"]'))
+get-password:
+	echo -n Enter password for service principal:
+	dotenv set SERVICE_PRINCIPAL_PWD $(shell read -s password)
+
+create-service-principal: get-password
+	$(eval app_id:=$(shell az ad sp create-for-rbac --name $(shell dotenv get SERVICE_PRINCIPAL_APP_NAME) --password $( shell dotenv get SERVICE_PRINCIPAL_PWD) |jq '.["appId"]'))
 	$(eval subscription_id:=$(shell az account show |jq '.["id"]'))
 	$(eval tenant:=$(shell az account show |jq '.["tenantId"]'))
 	dotenv set APP_ID $(app_id)
@@ -38,7 +58,7 @@ create-service-principal:
 
 select-subscription:
 	az login -o table
-	az account set --subscription "$(SELECTED_SUBSCRIPTION)"
+	az account set --subscription "$(shell dotenv get SELECTED_SUBSCRIPTION)"
 	ln -s /anaconda/envs/py35/bin/conda /home/mat/repos/deep_bait/envs/default/bin/conda
 
 create-storage:
@@ -57,10 +77,6 @@ create-fileshare: set-storage
 
 download-data:
 	wget http://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz -P $(shell dirname $(DATA))
-
-transfer-to-fileshare: set-storage download-data prepare-data
-	@echo "Transfering data to fileshare"
-	blobxfer upload --mode file --storage-account-key $(azure_storage_key) --storage-account $(azure_storage_account) --remote-path $(file_share_name)/data --local-path $(shell dirname $(DATA))
 
 set-storage-key: set-storage
 	@echo "Setting storage account key"
