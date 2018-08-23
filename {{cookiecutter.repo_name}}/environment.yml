@@ -18,7 +18,7 @@ dependencies:
     - nbconvert==5.1.1
     - blobxfer==1.0.0
     - azure-cli
-    - python-dotenv[cli]==0.7.1
+    - python-dotenv[cli]==0.9.1
     - nbformat==4.4.0
     - setuptools==36.5.0
     - azure-storage==0.33.0
