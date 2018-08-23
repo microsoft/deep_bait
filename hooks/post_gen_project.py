@@ -1,3 +1,4 @@
+import os
 import subprocess
 # from getpass import getpass
 
@@ -29,6 +30,7 @@ class EnvException(Exception):
     pass
 
 def create_env():
+    print(os.getcwd())
     make_process = subprocess.Popen("make create-env", stderr=subprocess.STDOUT)
     if make_process.wait() != 0:
          raise EnvException('Environment creation failed!! WHY oh WHY')
