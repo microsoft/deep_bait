@@ -49,7 +49,8 @@ register-azb:
 	az provider register -n Microsoft.BatchAI
 
 get-password:
-	dotenv set SERVICE_PRINCIPAL_PWD $(shell echo "Enter password for service principal:" && read -s password)
+	$(eval pwd:=$(shell echo "Enter password for service principal:" && read -s password))
+	dotenv set SERVICE_PRINCIPAL_PWD $(pwd)
 
 create-service-principal: get-password
 	$(eval app_id:=$(shell az ad sp create-for-rbac --name $(call denv,SERVICE_PRINCIPAL_APP_NAME) --password $(call denv,SERVICE_PRINCIPAL_PWD) |jq '.["appId"]'))
