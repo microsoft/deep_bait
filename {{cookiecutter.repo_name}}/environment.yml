@@ -21,4 +21,3 @@ dependencies:
     - python-dotenv[cli]==0.9.1
     - nbformat==4.4.0
     - setuptools==36.5.0
-    - azure-storage==0.33.0

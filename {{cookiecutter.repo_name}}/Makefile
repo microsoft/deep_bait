@@ -39,7 +39,7 @@ transfer-to-fileshare: set-storage download-data prepare-data
 
 
 install-blobxfer:
-	pip install blobxfer==1.0.0
+	pip install blobxfer==1.4.0
 
 install-az-cli:
 	pip install azure-cli
