@@ -50,15 +50,15 @@ register-azb:
 
 get-password:
 	$(eval pwd:=$(shell bash -c 'read -s -p "Enter password for service principal: " pwd; echo $$pwd'))
-	dotenv set SERVICE_PRINCIPAL_PWD $(pwd)
+	dotenv set SERVICE_PRINCIPAL_PWD $(pwd) 
 
 create-service-principal: get-password
 	$(eval app_id:=$(shell az ad sp create-for-rbac --name $(call denv,SERVICE_PRINCIPAL_APP_NAME) --password $(call denv,SERVICE_PRINCIPAL_PWD) |jq '.["appId"]'))
 	$(eval subscription_id:=$(shell az account show |jq '.["id"]'))
 	$(eval tenant:=$(shell az account show |jq '.["tenantId"]'))
-	dotenv set APP_ID $(app_id)
-	dotenv set TENANT $(tenant)
-	dotenv set SUBSCRIPTION_ID $(subscription_id)
+	dotenv set APP_ID $(app_id) 
+	dotenv set TENANT $(tenant) 
+	dotenv set SUBSCRIPTION_ID $(subscription_id) 
 
 select-subscription:
 	az login -o table
@@ -83,7 +83,7 @@ download-data:
 
 set-storage-key: set-storage
 	@echo "Setting storage account key"
-	dotenv set STORAGE_ACCOUNT_KEY "$(azure_storage_key)"
+	dotenv set STORAGE_ACCOUNT_KEY "$(azure_storage_key)" 
 
 prepare-data:
 	tar xzvf $(DATA) --directory $(shell dirname $(DATA))
