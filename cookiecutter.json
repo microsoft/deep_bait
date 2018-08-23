@@ -6,6 +6,5 @@
   "storage_account_name": "dbaitstr",
   "location": ["eastus", "southcentralus"],
   "fileshare_name": "dbaitshare",
-  "service_principal_password": "password",
   "service_principal_app_name": "dbaitapp"
 }
