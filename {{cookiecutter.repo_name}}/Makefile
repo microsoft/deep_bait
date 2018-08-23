@@ -30,7 +30,7 @@ initial-setup: install-az-cli install-blobxfer select-subscription register-azb 
 
 
 notebook:
-	export $(cat .env | xargs) && jupyter notebook --ip=* --port=9999 --no-browser
+	export $(dotenv list | xargs) && jupyter notebook --ip=* --port=9999 --no-browser
 
 
 transfer-to-fileshare: set-storage download-data prepare-data
