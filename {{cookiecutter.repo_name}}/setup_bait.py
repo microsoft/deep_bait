@@ -25,6 +25,11 @@ IMAGE_NAMES = ["masalvar/cntk_bait",
                "masalvar/tf_bait"]
 
 LOGGER_URL="dbait.eastus.cloudapp.azure.com"
+COMMAND_TEMPLATE='bash -c "\
+	cd $AZ_BATCHAI_INPUT_SCRIPT && \
+	papermill {input_nb} $AZ_BATCHAI_OUTPUT_NOTEBOOKS/{output_nb} \
+	-p --EPOCHS={epochs} -p --LOGGER_URL={logger_url} --log-output --no-progress-bar"'
+
 
 def encode(value):
     if isinstance(value, type('str')):
@@ -125,12 +130,10 @@ def submit_cntk_job(workspace, experiment, job_name='run_cntk', epochs=5):
     """
     logger.info('Submitting job {}'.format(job_name))
     _upload_job_scripts(job_name)
-
-    command = 'bash -c "\
-	source /cntk/activate-cntk && \
-	cd $AZ_BATCHAI_INPUT_SCRIPT && \
-	python -u nb_execute.py CNTK_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/CNTK_{}.ipynb --EPOCHS={} --LOGGER_URL={}"'\
-        .format(job_name, epochs, LOGGER_URL)
+    command=COMMAND_TEMPLATE.format(input_nb='CNTK_CIFAR.ipynb', 
+                                    output_nb='CNTK_{}.ipynb'.format(job_name), 
+                                    epochs=epochs, 
+                                    logger_utl=LOGGER_URL)
     ut.create_job(config, current_cluster(workspace).id, workspace, experiment, job_name, 'masalvar/cntk_bait', command)
 
 
@@ -139,11 +142,10 @@ def submit_chainer_job(workspace, experiment, job_name='run_chainer', epochs=5):
     """
     logger.info('Submitting job {}'.format(job_name))
     _upload_job_scripts(job_name)
-
-    command = 'bash -c "\
-	cd $AZ_BATCHAI_INPUT_SCRIPT && \
-	python -u nb_execute.py Chainer_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Chainer_{}.ipynb --EPOCHS={} --LOGGER_URL={}"' \
-        .format(job_name, epochs, LOGGER_URL)
+    command = COMMAND_TEMPLATE.format(input_nb='Chainer_CIFAR.ipynb',
+                                      output_nb='Chainer_{}.ipynb'.format(job_name),
+                                      epochs=epochs,
+                                      logger_utl=LOGGER_URL)
     ut.create_job(config, current_cluster(workspace).id, workspace, experiment, job_name, 'masalvar/chainer_bait', command)
 
 
@@ -152,11 +154,10 @@ def submit_mxnet_job(workspace, experiment, job_name='run_mxnet', epochs=5):
     """
     logger.info('Submitting job {}'.format(job_name))
     _upload_job_scripts(job_name)
-
-    command = 'bash -c "\
-	cd $AZ_BATCHAI_INPUT_SCRIPT && \
-	python -u nb_execute.py MXNet_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/MXNet_{}.ipynb --EPOCHS={} --LOGGER_URL={}"' \
-        .format(job_name, epochs, LOGGER_URL)
+    command = COMMAND_TEMPLATE.format(input_nb='MXNet_CIFAR.ipynb',
+                                      output_nb='MXNet_{}.ipynb'.format(job_name),
+                                      epochs=epochs,
+                                      logger_utl=LOGGER_URL)
     ut.create_job(config, current_cluster(workspace).id, workspace, experiment, job_name, 'masalvar/mxnet_bait', command)
 
 
@@ -165,11 +166,10 @@ def submit_gluon_job(workspace, experiment, job_name='run_gluon', epochs=5):
     """
     logger.info('Submitting job {}'.format(job_name))
     _upload_job_scripts(job_name)
-
-    command = 'bash -c "\
-	cd $AZ_BATCHAI_INPUT_SCRIPT && \
-	python -u nb_execute.py Gluon_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Gluon_{}.ipynb --EPOCHS={} --LOGGER_URL={}"' \
-        .format(job_name, epochs, LOGGER_URL)
+    command = COMMAND_TEMPLATE.format(input_nb='Gluon_CIFAR.ipynb',
+                                      output_nb='Gluon_{}.ipynb'.format(job_name),
+                                      epochs=epochs,
+                                      logger_utl=LOGGER_URL)
     ut.create_job(config, current_cluster(workspace).id, workspace, experiment, job_name, 'masalvar/mxnet_bait', command)
 
 
@@ -178,12 +178,10 @@ def submit_keras_cntk_job(workspace, experiment, job_name='run_keras_cntk', epoc
     """
     logger.info('Submitting job {}'.format(job_name))
     _upload_job_scripts(job_name)
-
-    command = 'bash -c "\
-	cd $AZ_BATCHAI_INPUT_SCRIPT && \
-	printenv && \
-	python -u nb_execute.py Keras_CNTK_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Keras_CNTK_{}.ipynb --EPOCHS={} --LOGGER_URL={}"' \
-        .format(job_name, epochs, LOGGER_URL)
+    command = COMMAND_TEMPLATE.format(input_nb='Keras_CNTK_CIFAR.ipynb',
+                                      output_nb='Keras_CNTK_{}.ipynb'.format(job_name),
+                                      epochs=epochs,
+                                      logger_utl=LOGGER_URL)
     ut.create_job(config, current_cluster(workspace).id, workspace, experiment, job_name, 'masalvar/keras_bait', command)
 
 
@@ -192,11 +190,10 @@ def submit_keras_tf_job(workspace, experiment, job_name='run_keras_tf', epochs=5
     """
     logger.info('Submitting job {}'.format(job_name))
     _upload_job_scripts(job_name)
-
-    command = 'bash -c "\
-	cd $AZ_BATCHAI_INPUT_SCRIPT && \
-	python -u nb_execute.py Keras_TF_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Keras_TF_{}.ipynb --EPOCHS={} --LOGGER_URL={}"' \
-        .format(job_name, epochs, LOGGER_URL)
+    command = COMMAND_TEMPLATE.format(input_nb='Keras_TF_CIFAR.ipynb',
+                                      output_nb='Keras_TF_{}.ipynb'.format(job_name),
+                                      epochs=epochs,
+                                      logger_utl=LOGGER_URL)
     ut.create_job(config, current_cluster(workspace).id, workspace, experiment, job_name, 'masalvar/keras_bait', command)
 
 
@@ -205,11 +202,10 @@ def submit_caffe2_job(workspace, experiment, job_name='run_caffe2', epochs=5):
     """
     logger.info('Submitting job {}'.format(job_name))
     _upload_job_scripts(job_name)
-
-    command = 'bash -c "\
-	cd $AZ_BATCHAI_INPUT_SCRIPT && \
-	python -u nb_execute.py Caffe2_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Caffe2_{}.ipynb --EPOCHS={} --LOGGER_URL={}"' \
-        .format(job_name, epochs, LOGGER_URL)
+    command = COMMAND_TEMPLATE.format(input_nb='Caffe2_CIFAR.ipynb',
+                                      output_nb='Caffe2_{}.ipynb'.format(job_name),
+                                      epochs=epochs,
+                                      logger_utl=LOGGER_URL)
     ut.create_job(config, current_cluster(workspace).id, workspace, experiment, job_name, 'masalvar/caffe2_bait', command)
 
 
@@ -218,12 +214,10 @@ def submit_pytorch_job(workspace, experiment, job_name='run_pytorch', epochs=5):
     """
     logger.info('Submitting job {}'.format(job_name))
     _upload_job_scripts(job_name)
-
-    command = 'bash -c "\
-	cd $AZ_BATCHAI_INPUT_SCRIPT && \
-	df -h && \
-	python -u nb_execute.py Pytorch_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Pytorch_{}.ipynb --EPOCHS={} --LOGGER_URL={}"' \
-        .format(job_name, epochs, LOGGER_URL)
+    command = COMMAND_TEMPLATE.format(input_nb='Pytorch_CIFAR.ipynb',
+                                      output_nb='Pytorch_{}.ipynb'.format(job_name),
+                                      epochs=epochs,
+                                      logger_utl=LOGGER_URL)
     ut.create_job(config, current_cluster(workspace).id, workspace, experiment, job_name, 'masalvar/pytorch_bait', command)
 
 
@@ -232,11 +226,10 @@ def submit_tf_job(workspace, experiment, job_name='run_tf', epochs=5):
     """
     logger.info('Submitting job {}'.format(job_name))
     _upload_job_scripts(job_name)
-
-    command = 'bash -c "\
-	cd $AZ_BATCHAI_INPUT_SCRIPT && \
-	python -u nb_execute.py Tensorflow_CIFAR.ipynb $AZ_BATCHAI_OUTPUT_NOTEBOOKS/Tensorflow_{}.ipynb --EPOCHS={} --LOGGER_URL={}"' \
-        .format(job_name, epochs, LOGGER_URL)
+    command = COMMAND_TEMPLATE.format(input_nb='Tensorflow_CIFAR.ipynb',
+                                      output_nb='Tensorflow_{}.ipynb'.format(job_name),
+                                      epochs=epochs,
+                                      logger_utl=LOGGER_URL)
     ut.create_job(config, current_cluster(workspace).id, workspace, experiment, job_name, 'masalvar/tf_bait', command)
 
 
