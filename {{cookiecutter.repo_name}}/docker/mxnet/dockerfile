@@ -26,7 +26,7 @@ RUN add-apt-repository ppa:deadsnakes/ppa && \
 	python3.6 \
 	python3.6-dev \
 	libatlas-base-dev \
-	graphviz \
+	graphviz 
 
 RUN wget -O ~/get-pip.py \
     https://bootstrap.pypa.io/get-pip.py && \
