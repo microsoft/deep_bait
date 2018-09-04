@@ -92,7 +92,7 @@ help:
 
 
 exec-cntk:
-	$(call execute_notebook, $(CNTK_IMAGE), source /cntk/activate-cntk &&, CNTK_CIFAR.ipynb /mnt/output/CNTK_NEW.ipynb -p EPOCHS 10)
+	$(call execute_notebook, $(CNTK_IMAGE), , CNTK_CIFAR.ipynb /mnt/output/CNTK_NEW.ipynb -p EPOCHS 10)
 
 exec-pytorch:
 	$(call execute_notebook, $(PYTORCH_IMAGE), source activate pytorch-py35 &&, PyTorch_CIFAR.ipynb /mnt/output/PyTorch_NEW.ipynb -p EPOCHS 10)
