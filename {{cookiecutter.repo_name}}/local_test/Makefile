@@ -107,16 +107,16 @@ exec-chainer:
 	$(call execute_notebook, $(CHAINER_IMAGE), , Chainer_CIFAR.ipynb /mnt/output/Chainer_NEW.ipynb -p EPOCHS 10 )
 
 exec-mxnet:
-	$(call execute_notebook, $(MXNET_IMAGE), , MXNet_CIFAR.ipynb /mnt/output/MXNet_NEW.ipynb python3 -p EPOCHS 10)
+	$(call execute_notebook, $(MXNET_IMAGE), , MXNet_CIFAR.ipynb /mnt/output/MXNet_NEW.ipynb -k python3 -p EPOCHS 10)
 
 exec-caffe2:
-	$(call execute_notebook, $(CAFFE2_IMAGE), , Caffe2_CIFAR.ipynb /mnt/output/Caffe2_NEW.ipynb python3 -p EPOCHS 10)
+	$(call execute_notebook, $(CAFFE2_IMAGE), , Caffe2_CIFAR.ipynb /mnt/output/Caffe2_NEW.ipynb -k python3 -p EPOCHS 10)
 
 exec-tf:
-	$(call execute_notebook, $(TF_IMAGE), , Tensorflow_CIFAR.ipynb /mnt/output/Tensorflow_NEW.ipynb python3 -p EPOCHS 10)
+	$(call execute_notebook, $(TF_IMAGE), , Tensorflow_CIFAR.ipynb /mnt/output/Tensorflow_NEW.ipynb -k python3 -p EPOCHS 10)
 
 exec-gluon:
-	$(call execute_notebook, $(MXNET_IMAGE), , Gluon_CIFAR.ipynb /mnt/output/Gluon_NEW.ipynb python3 -p EPOCHS 10)
+	$(call execute_notebook, $(MXNET_IMAGE), , Gluon_CIFAR.ipynb /mnt/output/Gluon_NEW.ipynb -k python3 -p EPOCHS 10)
 
 
 exec-all: exec-cntk exec-pytorch exec-keras-cntk exec-keras-tf exec-chainer exec-mxnet exec-caffe2 exec-tf exec-gluon
