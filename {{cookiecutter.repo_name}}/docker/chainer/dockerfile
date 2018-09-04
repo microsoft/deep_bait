@@ -1,42 +1,65 @@
-FROM nvidia/cuda:7.5-cudnn5-devel
+FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-         build-essential \
-         cmake \
-         git \
-         curl \
-         vim \
-         ca-certificates \
-         libjpeg-dev \
-         libpng-dev \
-         locales &&\
-     rm -rf /var/lib/apt/lists/*
+	build-essential \
+	ca-certificates \
+	cmake \
+	git \
+	iproute2 \
+	locales \
+	pandoc \
+	software-properties-common \
+	wget \
+	vim && \
+	rm -rf /var/lib/apt/lists/* \
+    /etc/apt/sources.list.d/cuda.list \
+	/etc/apt/sources.list.d/nvidia-ml.list
 
 RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
-RUN curl -o ~/miniconda.sh -O  https://repo.continuum.io/miniconda/Miniconda3-4.2.12-Linux-x86_64.sh  && \
-     chmod +x ~/miniconda.sh && \
-     ~/miniconda.sh -b -p /opt/conda && \
-     rm ~/miniconda.sh && \
-     /opt/conda/bin/conda install conda-build && \
-     /opt/conda/bin/conda create -y --name py35 python=3.5.2 numpy pyyaml scipy ipython mkl scikit-learn jupyter&& \
-     /opt/conda/bin/conda clean -ya
-ENV PATH /opt/conda/envs/py35/bin:$PATH
+RUN add-apt-repository ppa:deadsnakes/ppa && \
+	apt-get update && apt-get install -y --no-install-recommends \
+	python3.6 \
+	python3.6-dev \
+	libatlas-base-dev \
+	graphviz 
 
-COPY ssh_config /root/.ssh/config
-RUN apt-get update && apt-get install -y --no-install-recommends \
-        iproute2 \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+RUN wget -O ~/get-pip.py \
+    https://bootstrap.pypa.io/get-pip.py && \
+    python3.6 ~/get-pip.py && \
+    ln -s /usr/bin/python3.6 /usr/local/bin/python3 && \
+	ln -s /usr/bin/python3.6 /usr/local/bin/python
+
+RUN python -m pip --no-cache-dir install --upgrade \
+        setuptools \
+        numpy \
+        scipy \
+        pandas \
+        scikit-learn \
+        matplotlib \
+		Cython \
+		cupy \
+		chainer \
+		graphviz \
+		fire \
+		toolz \
+		jupyter \
+		ipykernel \
+		papermill 
 
 
-RUN bash -c "source activate py35 && \
-			 pip install fire toolz scikit-learn cupy==2.0.0rc1 chainer==3.0.0rc1 papermill && \
-			 git clone https://github.com/msalvaris/gpu_monitor.git && \
-			 pip install -r gpu_monitor/requirements.txt && \
-			 pip install -e gpu_monitor"
+RUN ldconfig && \
+    apt-get clean && \
+    apt-get autoremove && \
+	rm -rf /var/lib/apt/lists/* /tmp/* ~/*
+
+
+RUN git clone https://github.com/msalvaris/gpu_monitor.git && \
+	pip install -r gpu_monitor/requirements.txt && \
+	pip install -e gpu_monitor
+
 
 
