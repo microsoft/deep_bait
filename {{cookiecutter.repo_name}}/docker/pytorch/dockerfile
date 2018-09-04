@@ -1,20 +1,18 @@
 FROM masalvar/pytorch_base
-
-RUN apt-get update && apt-get install -y --no-install-recommends locales && \
-     	rm -rf /var/lib/apt/lists/*
      	
-RUN conda install --name pytorch-py35 jupyter
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        iproute2 \
+        git \
+        locales\
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-        iproute2 \
-        git \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+RUN conda install --name pytorch-py35 jupyter
 
 RUN bash -c "source activate pytorch-py35 && \
 			 pip install fire toolz scikit-learn papermill && \
