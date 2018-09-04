@@ -84,8 +84,7 @@ define execute_notebook
  $(prepare_data) && \
  $(2) \
  cd /mnt/script && \
- papermill $(3)"
-# python3 -u nb_execute.py $(3) "
+ papermill $(3) --no-progress-bar"
 endef
 
 help:
@@ -93,31 +92,31 @@ help:
 
 
 exec-cntk:
-	$(call execute_notebook, $(CNTK_IMAGE), source /cntk/activate-cntk &&, CNTK_CIFAR.ipynb /mnt/output/CNTK_NEW.ipynb --EPOCHS=10)
+	$(call execute_notebook, $(CNTK_IMAGE), source /cntk/activate-cntk &&, CNTK_CIFAR.ipynb /mnt/output/CNTK_NEW.ipynb -p EPOCHS 10)
 
 exec-pytorch:
 	$(call execute_notebook, $(PYTORCH_IMAGE), source activate pytorch-py35 &&, PyTorch_CIFAR.ipynb /mnt/output/PyTorch_NEW.ipynb -p EPOCHS 10)
 
 exec-keras-cntk:
-	$(call execute_notebook, $(KERAS_IMAGE), , Keras_CNTK_CIFAR.ipynb /mnt/output/Keras_CNTK_NEW.ipynb --EPOCHS=10)
+	$(call execute_notebook, $(KERAS_IMAGE), , Keras_CNTK_CIFAR.ipynb /mnt/output/Keras_CNTK_NEW.ipynb -p EPOCHS 10)
 
 exec-keras-tf:
-	$(call execute_notebook, $(KERAS_IMAGE), , Keras_TF_CIFAR.ipynb /mnt/output/Keras_TF_NEW.ipynb --EPOCHS=10)
+	$(call execute_notebook, $(KERAS_IMAGE), , Keras_TF_CIFAR.ipynb /mnt/output/Keras_TF_NEW.ipynb -p EPOCHS 10)
 
 exec-chainer:
-	$(call execute_notebook, $(CHAINER_IMAGE), , Chainer_CIFAR.ipynb /mnt/output/Chainer_NEW.ipynb --EPOCHS=10 )
+	$(call execute_notebook, $(CHAINER_IMAGE), , Chainer_CIFAR.ipynb /mnt/output/Chainer_NEW.ipynb -p EPOCHS 10 )
 
 exec-mxnet:
-	$(call execute_notebook, $(MXNET_IMAGE), , MXNet_CIFAR.ipynb /mnt/output/MXNet_NEW.ipynb python3 --EPOCHS=10)
+	$(call execute_notebook, $(MXNET_IMAGE), , MXNet_CIFAR.ipynb /mnt/output/MXNet_NEW.ipynb python3 -p EPOCHS 10)
 
 exec-caffe2:
-	$(call execute_notebook, $(CAFFE2_IMAGE), , Caffe2_CIFAR.ipynb /mnt/output/Caffe2_NEW.ipynb python3 --EPOCHS=10)
+	$(call execute_notebook, $(CAFFE2_IMAGE), , Caffe2_CIFAR.ipynb /mnt/output/Caffe2_NEW.ipynb python3 -p EPOCHS 10)
 
 exec-tf:
-	$(call execute_notebook, $(TF_IMAGE), , Tensorflow_CIFAR.ipynb /mnt/output/Tensorflow_NEW.ipynb python3 --EPOCHS=10)
+	$(call execute_notebook, $(TF_IMAGE), , Tensorflow_CIFAR.ipynb /mnt/output/Tensorflow_NEW.ipynb python3 -p EPOCHS 10)
 
 exec-gluon:
-	$(call execute_notebook, $(MXNET_IMAGE), , Gluon_CIFAR.ipynb /mnt/output/Gluon_NEW.ipynb python3 --EPOCHS=10)
+	$(call execute_notebook, $(MXNET_IMAGE), , Gluon_CIFAR.ipynb /mnt/output/Gluon_NEW.ipynb python3 -p EPOCHS 10)
 
 
 exec-all: exec-cntk exec-pytorch exec-keras-cntk exec-keras-tf exec-chainer exec-mxnet exec-caffe2 exec-tf exec-gluon
