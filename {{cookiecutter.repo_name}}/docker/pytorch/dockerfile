@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 RUN bash -c "source activate pytorch-py35 && \
-			 pip install fire toolz scikit-learn && \
+			 pip install fire toolz scikit-learn papermill && \
 			 git clone https://github.com/msalvaris/gpu_monitor.git && \
 			 pip install -r gpu_monitor/requirements.txt && \
 			 pip install -e gpu_monitor"

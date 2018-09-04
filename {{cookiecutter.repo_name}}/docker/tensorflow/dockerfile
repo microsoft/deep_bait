@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip install fire toolz scikit-learn
+RUN pip install fire toolz scikit-learn papermill
 RUN git clone https://github.com/msalvaris/gpu_monitor.git && \
 	pip install -r gpu_monitor/requirements.txt && \
 	pip install -e gpu_monitor

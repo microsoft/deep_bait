@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 
-RUN pip3 install fire toolz jupyter scipy scikit-learn ipykernel
+RUN pip3 install fire toolz jupyter scipy scikit-learn ipykernel papermill 
 
 RUN git clone https://github.com/msalvaris/gpu_monitor.git && \
 	pip3 install -r gpu_monitor/requirements.txt && \

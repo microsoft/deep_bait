@@ -84,7 +84,8 @@ define execute_notebook
  $(prepare_data) && \
  $(2) \
  cd /mnt/script && \
- python3 -u nb_execute.py $(3) "
+ papermill $(3)"
+# python3 -u nb_execute.py $(3) "
 endef
 
 help:
@@ -95,7 +96,7 @@ exec-cntk:
 	$(call execute_notebook, $(CNTK_IMAGE), source /cntk/activate-cntk &&, CNTK_CIFAR.ipynb /mnt/output/CNTK_NEW.ipynb --EPOCHS=10)
 
 exec-pytorch:
-	$(call execute_notebook, $(PYTORCH_IMAGE), source activate pytorch-py35 &&, PyTorch_CIFAR.ipynb /mnt/output/PyTorch_NEW.ipynb --EPOCHS=10)
+	$(call execute_notebook, $(PYTORCH_IMAGE), source activate pytorch-py35 &&, PyTorch_CIFAR.ipynb /mnt/output/PyTorch_NEW.ipynb -p EPOCHS 10)
 
 exec-keras-cntk:
 	$(call execute_notebook, $(KERAS_IMAGE), , Keras_CNTK_CIFAR.ipynb /mnt/output/Keras_CNTK_NEW.ipynb --EPOCHS=10)
