@@ -95,7 +95,7 @@ exec-cntk:
 	$(call execute_notebook, $(CNTK_IMAGE), , CNTK_CIFAR.ipynb /mnt/output/CNTK_NEW.ipynb -p EPOCHS 10)
 
 exec-pytorch:
-	$(call execute_notebook, $(PYTORCH_IMAGE), source activate pytorch-py35 &&, PyTorch_CIFAR.ipynb /mnt/output/PyTorch_NEW.ipynb -p EPOCHS 10)
+	$(call execute_notebook, $(PYTORCH_IMAGE), , PyTorch_CIFAR.ipynb /mnt/output/PyTorch_NEW.ipynb -p EPOCHS 10)
 
 exec-keras-cntk:
 	$(call execute_notebook, $(KERAS_IMAGE), , Keras_CNTK_CIFAR.ipynb /mnt/output/Keras_CNTK_NEW.ipynb -p EPOCHS 10)
@@ -124,11 +124,11 @@ exec-all: exec-cntk exec-pytorch exec-keras-cntk exec-keras-tf exec-chainer exec
 
 
 cntk-nb-server:
-	$(call serve_notebbook, $(CNTK_IMAGE), source /cntk/activate-cntk &&)
+	$(call serve_notebbook, $(CNTK_IMAGE), )
 
 
 pytorch-nb-server:
-	$(call serve_notebbook, $(PYTORCH_IMAGE),source activate pytorch-py35 && )
+	$(call serve_notebbook, $(PYTORCH_IMAGE), )
 
 
 keras-nb-server:
