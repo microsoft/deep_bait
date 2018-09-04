@@ -1,5 +1,8 @@
 FROM masalvar/pytorch_base
 
+RUN apt-get update && apt-get install -y --no-install-recommends locales && \
+     	rm -rf /var/lib/apt/lists/*
+     	
 RUN conda install --name pytorch-py35 jupyter
 
 RUN locale-gen en_US.UTF-8
