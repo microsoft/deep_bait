@@ -84,7 +84,7 @@ define execute_notebook
  $(prepare_data) && \
  $(2) \
  cd /mnt/script && \
- papermill $(3) --no-progress-bar"
+ papermill $(3) --log-output --no-progress-bar"
 endef
 
 help:
