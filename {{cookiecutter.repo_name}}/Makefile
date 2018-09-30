@@ -48,7 +48,6 @@ register-azb:
 	az provider register -n Microsoft.Batch
 	az provider register -n Microsoft.BatchAI
 
-#TODO: entering password without quotes generates error
 get-password:
 	$(eval pwd:=$(shell bash -c 'read -s -p "Enter password for service principal: " pwd; echo $$pwd'))
 	dotenv set SERVICE_PRINCIPAL_PWD "$(pwd)"
@@ -58,9 +57,6 @@ get-password:
 #(envs) mat@mspony1:~/repos/dbait$ az ad sp list --display-name dbait --query "[0].[appId, appDisplayName]" -o json[  "2f610756-2c1a-4261-b530-5296fec1d6ca",  "dbaitapp"]
 
 #TODO: Add ability to create grafana and influxdb locally
-
-#TODO: If logged in to azure avoid logging in again
-
 
 
 create-service-principal: get-password
