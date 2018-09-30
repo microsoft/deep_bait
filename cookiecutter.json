@@ -8,5 +8,6 @@
   "fileshare_name": "dbaitshare",
   "service_principal_app_name": "dbaitapp",
   "dockerhub": "masalvar",
-  "data_location": "data"
+  "data_location": "data",
+  "logger_url": "dbait.eastus.cloudapp.azure.com"
 }
