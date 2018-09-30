@@ -48,9 +48,20 @@ register-azb:
 	az provider register -n Microsoft.Batch
 	az provider register -n Microsoft.BatchAI
 
+#TODO: entering password without quotes generates error
 get-password:
 	$(eval pwd:=$(shell bash -c 'read -s -p "Enter password for service principal: " pwd; echo $$pwd'))
-	dotenv set SERVICE_PRINCIPAL_PWD $(pwd) 
+	dotenv set SERVICE_PRINCIPAL_PWD "$(pwd)"
+
+
+#TODO: Add ability to use same app, find app by name and extract app id
+#(envs) mat@mspony1:~/repos/dbait$ az ad sp list --display-name dbait --query "[0].[appId, appDisplayName]" -o json[  "2f610756-2c1a-4261-b530-5296fec1d6ca",  "dbaitapp"]
+
+#TODO: Add ability to create grafana and influxdb locally
+
+#TODO: If logged in to azure avoid logging in again
+
+
 
 create-service-principal: get-password
 	$(eval app_id:=$(shell az ad sp create-for-rbac --name $(call denv,SERVICE_PRINCIPAL_APP_NAME) --password $(call denv,SERVICE_PRINCIPAL_PWD) |jq '.["appId"]'))
@@ -61,7 +72,12 @@ create-service-principal: get-password
 	dotenv set SUBSCRIPTION_ID $(subscription_id) 
 
 select-subscription:
-	az login -o table
+	list=`az account list -o table`
+	if [ "$list" == '[]' ] || [ "$list" == '' ]; then 
+	  az login -o table
+	else
+	  az account list -o table 
+	fi
 	az account set --subscription "$(call denv,SELECTED_SUBSCRIPTION)"
 
 create-storage:
