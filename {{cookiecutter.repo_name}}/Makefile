@@ -73,11 +73,11 @@ create-service-principal: get-password
 
 select-subscription:
 	list=`az account list -o table`
-	if [ "$list" == '[]' ] || [ "$list" == '' ]; then 
-	  az login -o table
-	else
-	  az account list -o table 
-	fi
+	@if [ "$list" == '[]' ] || [ "$list" == '' ]; then 
+	  @az login -o table
+	@else
+	  @az account list -o table 
+	@fi
 	az account set --subscription "$(call denv,SELECTED_SUBSCRIPTION)"
 
 create-storage:
