@@ -24,11 +24,11 @@ IMAGE_NAMES = ["masalvar/cntk_bait",
                "masalvar/pytorch_bait",
                "masalvar/tf_bait"]
 
-LOGGER_URL="dbait.eastus.cloudapp.azure.com"
+LOGGER_URL=os.getenv('LOGGER_URL', default="dbait.eastus.cloudapp.azure.com")
 COMMAND_TEMPLATE='bash -c "\
 	cd $AZ_BATCHAI_INPUT_SCRIPT && \
 	papermill {input_nb} $AZ_BATCHAI_OUTPUT_NOTEBOOKS/{output_nb} \
-	-p --EPOCHS={epochs} -p --LOGGER_URL={logger_url} --log-output --no-progress-bar"'
+	-p EPOCHS {epochs} -p LOGGER_URL {logger_url} --log-output --no-progress-bar"'
 
 
 def encode(value):
@@ -125,7 +125,7 @@ def _upload_job_scripts(job_name):
 
 
 
-def submit_cntk_job(workspace, experiment, job_name='run_cntk', epochs=5):
+def submit_cntk_job(workspace, experiment, job_name='run_cntk', epochs=5, logger_url=LOGGER_URL):
     """ Submit CNTK job
     """
     logger.info('Submitting job {}'.format(job_name))
@@ -133,11 +133,11 @@ def submit_cntk_job(workspace, experiment, job_name='run_cntk', epochs=5):
     command=COMMAND_TEMPLATE.format(input_nb='CNTK_CIFAR.ipynb', 
                                     output_nb='CNTK_{}.ipynb'.format(job_name), 
                                     epochs=epochs, 
-                                    logger_utl=LOGGER_URL)
+                                    logger_url=logger_url)
     ut.create_job(config, current_cluster(workspace).id, workspace, experiment, job_name, 'masalvar/cntk_bait', command)
 
 
-def submit_chainer_job(workspace, experiment, job_name='run_chainer', epochs=5):
+def submit_chainer_job(workspace, experiment, job_name='run_chainer', epochs=5, logger_url=LOGGER_URL):
     """ Submit Chainer job
     """
     logger.info('Submitting job {}'.format(job_name))
@@ -145,11 +145,11 @@ def submit_chainer_job(workspace, experiment, job_name='run_chainer', epochs=5):
     command = COMMAND_TEMPLATE.format(input_nb='Chainer_CIFAR.ipynb',
                                       output_nb='Chainer_{}.ipynb'.format(job_name),
                                       epochs=epochs,
-                                      logger_utl=LOGGER_URL)
+                                      logger_url=logger_url)
     ut.create_job(config, current_cluster(workspace).id, workspace, experiment, job_name, 'masalvar/chainer_bait', command)
 
 
-def submit_mxnet_job(workspace, experiment, job_name='run_mxnet', epochs=5):
+def submit_mxnet_job(workspace, experiment, job_name='run_mxnet', epochs=5, logger_url=LOGGER_URL):
     """ Submit MXNet job
     """
     logger.info('Submitting job {}'.format(job_name))
@@ -157,11 +157,11 @@ def submit_mxnet_job(workspace, experiment, job_name='run_mxnet', epochs=5):
     command = COMMAND_TEMPLATE.format(input_nb='MXNet_CIFAR.ipynb',
                                       output_nb='MXNet_{}.ipynb'.format(job_name),
                                       epochs=epochs,
-                                      logger_utl=LOGGER_URL)
+                                      logger_url=logger_url)
     ut.create_job(config, current_cluster(workspace).id, workspace, experiment, job_name, 'masalvar/mxnet_bait', command)
 
 
-def submit_gluon_job(workspace, experiment, job_name='run_gluon', epochs=5):
+def submit_gluon_job(workspace, experiment, job_name='run_gluon', epochs=5, logger_url=LOGGER_URL):
     """ Submit Gluon job
     """
     logger.info('Submitting job {}'.format(job_name))
@@ -169,11 +169,11 @@ def submit_gluon_job(workspace, experiment, job_name='run_gluon', epochs=5):
     command = COMMAND_TEMPLATE.format(input_nb='Gluon_CIFAR.ipynb',
                                       output_nb='Gluon_{}.ipynb'.format(job_name),
                                       epochs=epochs,
-                                      logger_utl=LOGGER_URL)
+                                      logger_url=logger_url)
     ut.create_job(config, current_cluster(workspace).id, workspace, experiment, job_name, 'masalvar/mxnet_bait', command)
 
 
-def submit_keras_cntk_job(workspace, experiment, job_name='run_keras_cntk', epochs=5):
+def submit_keras_cntk_job(workspace, experiment, job_name='run_keras_cntk', epochs=5, logger_url=LOGGER_URL):
     """ Submit Keras with CNTK backend job
     """
     logger.info('Submitting job {}'.format(job_name))
@@ -181,11 +181,11 @@ def submit_keras_cntk_job(workspace, experiment, job_name='run_keras_cntk', epoc
     command = COMMAND_TEMPLATE.format(input_nb='Keras_CNTK_CIFAR.ipynb',
                                       output_nb='Keras_CNTK_{}.ipynb'.format(job_name),
                                       epochs=epochs,
-                                      logger_utl=LOGGER_URL)
+                                      logger_url=logger_url)
     ut.create_job(config, current_cluster(workspace).id, workspace, experiment, job_name, 'masalvar/keras_bait', command)
 
 
-def submit_keras_tf_job(workspace, experiment, job_name='run_keras_tf', epochs=5):
+def submit_keras_tf_job(workspace, experiment, job_name='run_keras_tf', epochs=5, logger_url=LOGGER_URL):
     """ Submit Keras with TF backend job
     """
     logger.info('Submitting job {}'.format(job_name))
@@ -193,11 +193,11 @@ def submit_keras_tf_job(workspace, experiment, job_name='run_keras_tf', epochs=5
     command = COMMAND_TEMPLATE.format(input_nb='Keras_TF_CIFAR.ipynb',
                                       output_nb='Keras_TF_{}.ipynb'.format(job_name),
                                       epochs=epochs,
-                                      logger_utl=LOGGER_URL)
+                                      logger_url=logger_url)
     ut.create_job(config, current_cluster(workspace).id, workspace, experiment, job_name, 'masalvar/keras_bait', command)
 
 
-def submit_caffe2_job(workspace, experiment, job_name='run_caffe2', epochs=5):
+def submit_caffe2_job(workspace, experiment, job_name='run_caffe2', epochs=5, logger_url=LOGGER_URL):
     """ Submit Caffe2 job
     """
     logger.info('Submitting job {}'.format(job_name))
@@ -205,11 +205,11 @@ def submit_caffe2_job(workspace, experiment, job_name='run_caffe2', epochs=5):
     command = COMMAND_TEMPLATE.format(input_nb='Caffe2_CIFAR.ipynb',
                                       output_nb='Caffe2_{}.ipynb'.format(job_name),
                                       epochs=epochs,
-                                      logger_utl=LOGGER_URL)
+                                      logger_url=logger_url)
     ut.create_job(config, current_cluster(workspace).id, workspace, experiment, job_name, 'masalvar/caffe2_bait', command)
 
 
-def submit_pytorch_job(workspace, experiment, job_name='run_pytorch', epochs=5):
+def submit_pytorch_job(workspace, experiment, job_name='run_pytorch', epochs=5, logger_url=LOGGER_URL):
     """ Submit Pytorch job
     """
     logger.info('Submitting job {}'.format(job_name))
@@ -217,11 +217,11 @@ def submit_pytorch_job(workspace, experiment, job_name='run_pytorch', epochs=5):
     command = COMMAND_TEMPLATE.format(input_nb='Pytorch_CIFAR.ipynb',
                                       output_nb='Pytorch_{}.ipynb'.format(job_name),
                                       epochs=epochs,
-                                      logger_utl=LOGGER_URL)
+                                      logger_url=logger_url)
     ut.create_job(config, current_cluster(workspace).id, workspace, experiment, job_name, 'masalvar/pytorch_bait', command)
 
 
-def submit_tf_job(workspace, experiment, job_name='run_tf', epochs=5):
+def submit_tf_job(workspace, experiment, job_name='run_tf', epochs=5, logger_url=LOGGER_URL):
     """ Submit Tensorflow job
     """
     logger.info('Submitting job {}'.format(job_name))
@@ -229,7 +229,7 @@ def submit_tf_job(workspace, experiment, job_name='run_tf', epochs=5):
     command = COMMAND_TEMPLATE.format(input_nb='Tensorflow_CIFAR.ipynb',
                                       output_nb='Tensorflow_{}.ipynb'.format(job_name),
                                       epochs=epochs,
-                                      logger_utl=LOGGER_URL)
+                                      logger_url=logger_url)
     ut.create_job(config, current_cluster(workspace).id, workspace, experiment, job_name, 'masalvar/tf_bait', command)
 
 
@@ -297,7 +297,7 @@ def delete_experiment(workspace, experiment):
     _ = client.experiments.delete(config.group_name, workspace, experiment).result()
 
 
-def submit_all(workspace, experiment, epochs=5):
+def submit_all(workspace, experiment, epochs=5, logger_url=LOGGER_URL):
     """ Submits all jobs
     """
     jobs = (submit_cntk_job,
@@ -311,7 +311,7 @@ def submit_all(workspace, experiment, epochs=5):
             submit_gluon_job)
 
     for job in jobs:
-        job(workspace, experiment, epochs=epochs)
+        job(workspace, experiment, epochs=epochs, logger_url=logger_url)
 
 
 def delete_all_jobs( workspace, experiment):
