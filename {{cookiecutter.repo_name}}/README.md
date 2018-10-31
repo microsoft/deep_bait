@@ -22,7 +22,7 @@ Each of the notebooks trains a simple Convolution Neural Network on the CIFAR10 
 This project was developed and tested on an [Azure Ubuntu DSVM](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/microsoft-ads.linux-data-science-vm-ubuntu) but should be compatible with any Linux distribution. The prerequisites for this are:
 * [Azure account](https://azure.microsoft.com/en-gb/free/)
 * [Register for Batch AI](https://docs.microsoft.com/en-gb/azure/batch-ai/quickstart-python)
-* [Cookiecutter installed](https://github.com/audreyr/cookiecutter) on VM or local machine
+* [anaconda-project installed](https://github.com/Anaconda-Platform/anaconda-project) on VM or local machine
 * Docker installed (only required for local testing and creating docker images)
 * Install [jq](https://github.com/stedolan/jq) if not already installed
 ```bash
@@ -39,22 +39,24 @@ sudo usermod -aG docker $USER
 You may need to log out and log back in again for changes to take effect. Instructions from https://docs.docker.com/engine/installation/linux/linux-postinstall/#manage-docker-as-a-non-root-user
 
 
+##### *** Tip ***
+Anaconda project sets a number of environment variables and when executing sudo commands these won't be available in the sudo environment. To make them available execute your sudo commands with the -E switch.
+
 ## Setting up project
 Once you have docker installed and anaconda-project you can start setting up the project.
 Many of the interactions happen through anaconda-project and to list the available commands simply run:
 
 ```bash
-cookiecutter https://github.com/Microsoft/deep_bait.git --checkout cookiecutter
+anaconda-project list-commands
 ```
 
-When you first set the project you will need to set a number of things up. These are handled through cookiecutter, for options that you want to leave the same simply press enter. 
-It will create the appropriate anaconda environment locally inside the envs folder. 
-Once that is done activate the newly created conda env and run the initial-setup by running the commands below.
+When you first set the project you will need to set a number of things up. These are handled through anaconda-project. It will create the appropriate environment, install the appropriate packages, download and prepare the data etc. Run the following to prepare the environment:
 ```bash
-conda activate envs
-make initial-setup
+anaconda-project prepare
 ```
-The above command will do the following:
+It will ask you for a number of variables as well as where to store the data locally. If nothing is specified it will use the local folder data.
+
+Once the environment is set up we need to install some further packages as well as create some Azure resources. The following command will:
 * Install the Azure CLI
 * Install Blobxfer
 * Log you in to Azure and select the appropriate subscription
@@ -63,24 +65,34 @@ The above command will do the following:
 * Create a storage account and fileshare
 * Download the CIFAR data and upload it to the fileshare
 
-The command can take a while. Pay attention since it will ask you to log in to your Azure account. If you want a better understanding of what is going on have a look at the [Makefile]({{cookiecutter.repo_name}}/Makefile)
-
+```bash
+anaconda-project run setup
+```
+The command can take a while. If you want more information on what is going on you can use the --verbose flag. Pay attention since it will ask you to log in to your Azure account. If you want a better understanding of what is going on have a look at the [Makefile](Makefile)
 
 ## Run Batch AI
-Instructions on how to setup the cluster and start submitting jobs are detailed in [ExploringBatchAI]({{cookiecutter.repo_name}}/ExploringBatchAI.ipynb) notebook. To start it run the following command: 
+Instructions on how to setup the cluster and start submitting jobs are detailed in [ExploringBatchAI](ExploringBatchAI.ipynb) notebook. To start it run the following command: 
 
 ```bash
-make notebook
+anaconda-project run notebook --no-browser
 ```
-We are assuming you are executing on a VM so it will not try to open up a browser. This will start a Jupyter notebook server that should be reachable the same way you would reach your standard Jupyter notebook server.
-The above commands assumes that the appropriate ports are open on the VM and that the server has been set up to accept connections from any ip.
 
+We are assuming you are executing on a VM and that is the reason for the --no-browser switch.  
+This will start a Jupyter notebook server that should be reachable the same way you would reach your standard Jupyter notebook server.
+The above commands assumes that the appropriate ports are open on the VM and that the server has been set up to accept connections from any ip.
+Other switches and arguments will also work so if you want to specify ip or port then you can simply add them on to the end.
+
+You can also interact with Batch AI by running:
+```bash
+anaconda-project run ipython -r setup_bait.py
+```
 
 ## Local Development
-When executing jobs on services such as Batch AI it is important to iron out as many of the bugs before executing on the cluster. That is why with this project there is a folder called [local_test]({{cookiecutter.repo_name}}/local_test) that includes a Makefile that allows you to run notebook servers inside the containers as well as test the execution of the containers.
+When executing jobs on services such as Batch AI it is important to iron out as many of the bugs before executing on the cluster. That is why with this project there is a folder called [local_test]({{cookiecutter.project_slug}}/local_test) that includes a Makefile that allows you to run notebook servers inside the containers as well as test the execution of the containers.
 
 To run any of the notebooks:
 ```bash
+anaconda-project --verbose run bash
 cd local_test
 make cntk-nb-server
 ```

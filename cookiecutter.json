@@ -1,0 +1,13 @@
+{
+  "repo_name": "dbait",
+  "project_slug": "{{ cookiecutter.repo_name.lower()|replace(' ', '_')|replace('-', '_') }}",
+  "selected_subscription": "Boston Team Danielle",
+  "group_name": "dbaitrg",
+  "storage_account_name": "dbaitstr",
+  "location": ["eastus", "southcentralus"],
+  "fileshare_name": "dbaitshare",
+  "service_principal_app_name": "dbaitapp",
+  "dockerhub": "masalvar",
+  "data_location": "data",
+  "logger_url": "dbait.eastus.cloudapp.azure.com"
+}
