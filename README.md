@@ -46,7 +46,7 @@ Once you have docker installed and anaconda-project you can start setting up the
 Many of the interactions happen through anaconda-project and to list the available commands simply run:
 
 ```bash
-cookiecutter https://github.com/Microsoft/deep_bait.git --checkout cookiecutter
+cookiecutter https://github.com/Microsoft/deep_bait.git
 ```
 
 When you first set the project you will need to set a number of things up. These are handled through cookiecutter, for options that you want to leave the same simply press enter. 
