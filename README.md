@@ -3,7 +3,7 @@
 This repo contains everything you need to run some of the most popular deep learning frameworks on Batch AI. 
 Batch AI is a service that allows you to run various machine learning workloads on clusters of VMs. For more details on the service please look [here](https://docs.microsoft.com/en-gb/azure/batch-ai/overview). 
 
-This project uses [anaconda-project](https://github.com/Anaconda-Platform/anaconda-project) and makefiles to create the environment, download the data and prepare all necessary artifacts.
+This project uses [cookiecutter](https://github.com/audreyr/cookiecutter) and makefiles to create the environment, download the data and prepare all necessary artifacts.
 
 The frameworks are:
 * [Caffe2](exec_src/Caffe2_CIFAR.ipynb)
@@ -17,6 +17,8 @@ The frameworks are:
 * [CNTK](exec_src/CNTK_CIFAR.ipynb)
 
 Each of the notebooks trains a simple Convolution Neural Network on the CIFAR10 dataset.
+
+The notebooks are based on the ones from [Deep learning Frameworks Comparison](https://github.com/ilkarman/DeepLearningFrameworks)
 
 ## Setup
 This project was developed and tested on an [Azure Ubuntu DSVM](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/microsoft-ads.linux-data-science-vm-ubuntu) but should be compatible with any Linux distribution. The prerequisites for this are:
