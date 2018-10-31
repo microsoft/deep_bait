@@ -63,8 +63,8 @@ The above command will do the following:
 * Create a storage account and fileshare
 * Download the CIFAR data and upload it to the fileshare
 
-
 The command can take a while. Pay attention since it will ask you to log in to your Azure account. If you want a better understanding of what is going on have a look at the [Makefile]({{cookiecutter.repo_name}}/Makefile)
+
 
 ## Run Batch AI
 Instructions on how to setup the cluster and start submitting jobs are detailed in [ExploringBatchAI]({{cookiecutter.repo_name}}/ExploringBatchAI.ipynb) notebook. To start it run the following command: 
@@ -72,7 +72,6 @@ Instructions on how to setup the cluster and start submitting jobs are detailed 
 ```bash
 make notebook
 ```
-
 We are assuming you are executing on a VM so it will not try to open up a browser. This will start a Jupyter notebook server that should be reachable the same way you would reach your standard Jupyter notebook server.
 The above commands assumes that the appropriate ports are open on the VM and that the server has been set up to accept connections from any ip.
 
