@@ -40,7 +40,7 @@ You may need to log out and log back in again for changes to take effect. Instru
 
 
 ##### *** Tip ***
-Anaconda project sets a number of environment variables and when executing sudo commands these won't be available in the sudo environment. To make them available execute your sudo commands with the -E switch.
+Anaconda project sets a number of environment variables and when executing sudo commands these won't be available in the sudo environment. To make them available execute your sudo commands with the `-E` switch.
 
 ## Setting up project
 Once you have docker installed and anaconda-project you can start setting up the project.
@@ -68,7 +68,7 @@ Once the environment is set up we need to install some further packages as well 
 ```bash
 anaconda-project run setup
 ```
-The command can take a while. If you want more information on what is going on you can use the --verbose flag. Pay attention since it will ask you to log in to your Azure account. If you want a better understanding of what is going on have a look at the [Makefile](Makefile)
+The command can take a while. If you want more information on what is going on you can use the `--verbose` flag. Pay attention since it will ask you to log in to your Azure account. If you want a better understanding of what is going on have a look at the [Makefile](Makefile)
 
 ## Run Batch AI
 Instructions on how to setup the cluster and start submitting jobs are detailed in [ExploringBatchAI](ExploringBatchAI.ipynb) notebook. To start it run the following command: 
@@ -77,7 +77,7 @@ Instructions on how to setup the cluster and start submitting jobs are detailed 
 anaconda-project run notebook --no-browser
 ```
 
-We are assuming you are executing on a VM and that is the reason for the --no-browser switch.  
+We are assuming you are executing on a VM and that is the reason for the `--no-browser` switch.  
 This will start a Jupyter notebook server that should be reachable the same way you would reach your standard Jupyter notebook server.
 The above commands assumes that the appropriate ports are open on the VM and that the server has been set up to accept connections from any ip.
 Other switches and arguments will also work so if you want to specify ip or port then you can simply add them on to the end. For example, to connect to the notebook externally, you can run: `anaconda-project run notebook --no-browser --ip=*`. Then, in a browser just type `http://[IP-or-DNS]:8888` to access the notebook.
